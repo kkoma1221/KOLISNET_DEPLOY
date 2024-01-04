@@ -1,0 +1,62 @@
+#subAdminUserList{
+    width: 100%;
+    height: calc(100% + 90px);
+    position: absolute;
+    z-index: 10;
+    top: 90px;
+    left: 0;
+    background: #eee;
+    ul{
+        width: 100%;
+        padding: 30px 0 0 0;
+        margin: 0 auto;
+        max-width: 1280px;
+        display: flex;
+        flex-flow: row wrap;
+        >ul{
+            width: 100%;
+            background-color: #eee;
+            >li{
+                width: 165px;
+                height: 70px;
+                border: 1px solid;
+                display: flex;
+                >p{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 600;
+                    color: #000;
+                    font-size: 20px;
+                }
+            }
+        }
+        .list{
+            width: 100%;
+            display: flex;
+            li{
+                display: flex;
+                width: 165px;
+                padding: 10px;
+                height: 70px;
+                border: 1px solid #333;
+                overflow-x: auto;
+                align-items: center;
+                justify-content: center;
+                p{
+                    width: 100%;
+                    display: block;
+                    align-items: center;
+                    text-align: center;
+                }
+                img{
+                    cursor: pointer;
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+
+    }
+}

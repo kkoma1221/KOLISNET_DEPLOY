@@ -1,0 +1,62 @@
+#subAdminSearchResult{
+    width: 100%;
+    height: calc(100% + 128px);
+    position: absolute;
+    z-index: 10;
+    top: 128px;
+    left: 0;
+    background: #eee;
+    .container{
+        width: 100%;
+        padding: 120px 0 0 0;
+        .content{
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            .img-box{
+                width: 400px;
+                height: 100%;
+                padding: 20px 30px 20px 30px;
+                display: flex;
+                justify-content: center;
+                flex-flow: row wrap;
+                margin: 0 20px 0 0;
+                border: 0px;
+                img{
+                    width: 120px;
+                    height: 120px;
+                }
+                span{
+                    width: 100%;
+                    margin: 20px 0 0 0;
+                    text-align: center;
+                }
+            }
+            .admin-info{
+                width: 600px;
+                p{
+                    font-size: 14px;
+                    font-weight: 500;
+                    width: 100%;
+                    padding: 10px 0;
+                }
+                button{
+                    appearance: none;
+                    background-color: #000;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    margin: 40px 0 0 0;
+                    width: 120px;
+                    height: 40px;
+                    font-size: 12px;
+                    color: #fff;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

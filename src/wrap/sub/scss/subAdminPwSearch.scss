@@ -1,0 +1,91 @@
+#subAdminPwSearch{
+    width: 100%;
+    height: calc(100% + 128px);
+    position: absolute;
+    z-index: 10;
+    top: 128px;
+    left: 0;
+    background: #eee;
+    .container{
+        width: 100%;
+        padding: 70px 0 0 0;
+        .content{
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+            background: #fff;
+            .title{
+                width: 100%;
+                padding: 0 0 20px 0;
+                text-align: center;
+                background: #eee;
+                h2{
+                    font-size: 24px;
+                }
+            }
+            form{
+                width: 100%;
+                padding: 30px 10px;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                border: 1px solid #666;
+                >ul{
+                    width: 680px;
+                    margin: 40px 0 0 0;
+                    display: flex;
+                    flex-flow: row wrap;
+                    justify-content: center;
+                    >li{
+                        width: 100%;
+                        padding: 10px 0;
+                        display: flex;
+                        justify-content: center;
+                        input{
+                            width: 300px;
+                            padding: 5px 0 0 10px;
+                            height: 40px;
+                            outline: none;
+                        }
+                    }
+                }
+                .footer-text{
+                    width: 480px;
+                    margin: 50px 0 0 0;
+                    .text-box{
+                        width: 100%;
+                        padding: 0 20px 0 40px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        a{
+                            width: 50px;
+                            font-size: 12px;
+                            white-space: nowrap;
+                        }
+                        ul{
+                            width: 150px;
+                            display: flex;
+                            flex-flow: row wrap;
+                            li{
+                                padding: 0 5px;
+                                a{
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                    }
+                }
+                button{
+                    margin: 60px 0 0 0;
+                    width: 200px;
+                    height: 40px;
+                    background: #569ebc;
+                    border: 1px solid #569ebc;
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
