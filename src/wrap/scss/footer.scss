@@ -1,0 +1,80 @@
+#footer{
+    width: 100%;
+    padding: 20px 0 40px 0;
+    .container{
+        width: 100%;
+        .content{
+            width: 100%;
+            .logo-box{
+                width: 100%;
+                padding: 20px 0;
+                border-bottom: 1px solid #ddd;
+                ul{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    li{
+                        margin: 0 70px 0 0;
+                        a{
+                            img{
+                                width: auto;
+                            }
+                        }
+                    }
+                }
+            }
+            .bottom-content{
+                width: 100%;
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 20px 0 0 0;
+                display: flex;
+                justify-content: space-around;
+                .logo1{
+                    img{
+
+                    }
+                }
+                .middle{
+                    padding: 0 0 0 30px;
+                    display: flex;
+                    align-items: center;
+                    ul{
+                        margin: 0 30px 0 0;
+                        li{
+                            color: #757575;
+                            font-size: 14px;
+                            line-height: 24px;
+                        }
+                    }
+                    img{
+
+                    }
+                }
+                .data{
+                    ul{
+                        li{
+                            width: 280px;
+                            color: #757575;
+                            display: flex;
+                            font-size: 14px;
+                            padding: 3px 0;
+                            font-weight: 400;
+                            justify-content: space-between;
+                            line-height: 22px;
+                            border-bottom: 1px solid #ddd;
+                            &:last-child{
+                                justify-content: end;
+                                border-bottom: 0;
+                                font-weight: 700;
+                                cursor: pointer;
+                            }
+                            em{}
+                            strong{}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

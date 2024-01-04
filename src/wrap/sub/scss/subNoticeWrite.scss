@@ -1,0 +1,97 @@
+#subNoticeWrite{
+    .container{
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        .left{
+            width: 220px;
+        }
+        .right{
+            width: 1060px;
+            padding: 60px 0 70px 50px;
+            border: 0;
+            border-left: 0.8px solid #ddd;
+            .title{
+                display: flex;
+                flex-flow: row nowrap;
+                align-items:end;
+                h2{
+                    color: #006c95;
+                    font-size: 23px;
+                    font-weight: 600;
+                }
+                span{
+                    font-size: 13px;
+                    color: #666;
+                    margin: 0 0 0 5px;
+                }
+            }
+            .notice{
+                width: 100%;
+                padding: 10px 0 0 0;
+                .content{
+                    width: 100%;
+                    border: 0;
+                    border-top: 2px solid rgb(179, 189, 204);
+                    display: flex;
+                    flex-flow: row nowrap;
+                    align-items: center;
+                    background: #dce4eb;
+                    .notice-title{
+                        width: 100%;
+                        display: flex;
+                        flex-flow: row wrap;
+                        li{
+                            width: 100%;
+                            display: flex;
+                            flex-flow: row nowrap;
+                            padding: 10px 0 10px 0;
+                            border-bottom: 1px solid rgb(179, 189, 204);
+                            h2{
+                                display: flex;
+                                align-items: center;
+                                width: 100px;
+                                height: 42px;
+                                margin: 0 10px;
+                            }
+                            input[type='text']{
+                                width: 800px;
+                                padding: 5px 0 5px 10px;
+                                height: 42px;
+                                outline: none;
+                                color: #000;
+                                font-size: 16px;
+                            }
+                            textarea{
+                                width: 800px;
+                                padding: 20px 0 5px 10px;
+                                height: 400px;
+                                outline: none;
+                                color: #000;
+                                font-size: 16px;
+                                resize: none;
+                            }
+                        }
+                    }
+                }
+                .btn-box{
+                    width: 100%;
+                    text-align: end;
+                    padding: 10px 15px 0 0;
+                    button{
+                        width: 90px;
+                        height: 30px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        white-space: nowrap;
+                        background-color: #000;
+                        color: #fff;
+                        border: 1px solid #000;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
