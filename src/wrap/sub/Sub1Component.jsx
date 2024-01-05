@@ -1,14 +1,16 @@
 import React from 'react';
 import './scss/sub1.scss';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Sub1LeftComponent from './Sub1LeftComponent.jsx';
 import Sub1ComponentChild from './Sub1ComponentChild.jsx';
+import { searchData } from '../../reducer/searchData';
 
 export default function Sub1Component() {
 
     const navigate = useNavigate();
     const selector = useSelector((state)=>state);
+    const dispatch = useDispatch();
 
     const [state, setState] = React.useState({
         일반도서: [],
@@ -50,8 +52,7 @@ export default function Sub1Component() {
         else {
             return;
         }
-
-    },[selector.searchData.searchData]);
+    },[selector.searchData.searchData, state]);
 
     return (
         <div id='sub1' className='sub1'>

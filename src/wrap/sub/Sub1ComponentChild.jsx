@@ -1,9 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { currentBook } from '../../reducer/currentBook';
 
 export default function Sub1ComponentChild({category, title}) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onClicklist=(e, item, idx)=>{
         e.preventDefault();
@@ -11,6 +14,7 @@ export default function Sub1ComponentChild({category, title}) {
         // console.log(idx);
         navigate('/productDetail', {state:item});
         localStorage.setItem('KOLISNET_VIEW_BOOK', JSON.stringify(item));
+        dispatch(currentBook(item));
     }
 
     return (

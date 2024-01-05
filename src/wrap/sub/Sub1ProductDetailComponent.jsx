@@ -4,6 +4,7 @@ import Sub1LeftComponent from './Sub1LeftComponent';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { confirmModal } from '../../reducer/confirmModal';
+import { cartMethod } from '../../reducer/cart';
 
 export default function Sub1ProductDetailComponent(){
 
@@ -15,16 +16,8 @@ export default function Sub1ProductDetailComponent(){
     const [state, setState] = React.useState({
         bookCheck: [],
         bookCheckAll:'',
-        cart: []
+        currentBook: []
     });
-
-    React.useEffect(()=>{
-        setState({
-            ...state,
-            cart: location.state
-        });
-        // console.log(state.cart);
-    },[location]);
 
     const onClickProductView=(e, item)=>{
         e.preventDefault();
@@ -70,11 +63,32 @@ export default function Sub1ProductDetailComponent(){
             confirmModalMethod('자료를 선택하세요.');
         }
         else {
-            
+            let currentBook = selector.currentBook.currentBook;
+            let cart = [];
             if(selector.adminSignIn.관리자로그인정보===null){
                 if(localStorage.getItem('KOLISNET_CART')!==null){
-
+                    cart = JSON.parse(localStorage.getItem('KOLISNET_CART'));
                 }
+
+                let result = cart.map((item)=>item.bookCopyright === currentBook.bookCopyright);
+                // console.log(currentBook.bookCopyright);
+                // console.log(result);
+                // console.log(cart);
+
+                if(result.includes(true)){
+                    confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
+                }
+                else{
+                    cart = [...cart, currentBook];
+                    confirmModalMethod('바구니에 저장되었습니다.'); 
+                }
+
+                localStorage.setItem('KOLISNET_CART', JSON.stringify(cart));
+                setState({
+                    ...state,
+                    currentBook: cart
+                });
+                dispatch(cartMethod(cart));
             }
             else if(selector.adminSignIn.관리자로그인정보!==null){
 
