@@ -186,9 +186,6 @@ export default function Sub1RegisterDataComponent(){
                     bookLibrary = [...state.bookLibrary, state.bookLibrarySelf];
                     //console.log(bookLibrary);
                 }
-                else {
-                    bookLibrary = state.bookLibrary;
-                }
             }
             else {
                 bookLibrary = state.bookLibrary;
@@ -208,7 +205,7 @@ export default function Sub1RegisterDataComponent(){
             formData.append('bookPage', state.bookPage);
             formData.append('bookLanguage', state.bookLanguage);
             formData.append('bookStore', state.bookStore);
-            formData.append('bookLibrary', bookLibrary);
+            formData.append('bookLibrary', JSON.stringify(bookLibrary));
             axios({
                 url:'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_register_date_table_insert.php',
                 method:'POST',

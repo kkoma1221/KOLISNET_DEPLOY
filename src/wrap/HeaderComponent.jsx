@@ -71,11 +71,7 @@ export default  function HeaderComponent(){
 
     const searchFilter=(category, result)=>{
         let res = result.filter((item)=>item.bookType!==category);
-        const obj = {
-            searchData: res,
-            searchWord: state.keyword
-        }
-        dispatch(searchData(obj));
+        dispatch(searchData(res));
         localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
     }
 

@@ -28,7 +28,7 @@ export default function Sub1Component() {
         let 멀티미디어비도서 = [];
         let 국회도서관소장자료 = [];
         let 대학도서관종합목록 = [];
-        if(selector.searchData.searchData!==null){
+        if(selector.searchData.searchData !== null){
             일반도서 = selector.searchData.searchData.filter((item)=>item.bookType==='일반도서');
             잡지학술지 = selector.searchData.searchData.filter((item)=>item.bookType==='잡지/학술지');
             학위논문 = selector.searchData.searchData.filter((item)=>item.bookType==='학위논문');
@@ -47,6 +47,10 @@ export default function Sub1Component() {
                 대학도서관종합목록: 대학도서관종합목록
             });
         }
+        else {
+            return;
+        }
+
     },[selector.searchData.searchData]);
 
     return (
