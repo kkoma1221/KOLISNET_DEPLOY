@@ -7,6 +7,7 @@ import Sub1ProductDetailComponent from "./wrap/sub/Sub1ProductDetailComponent.js
 import Sub1ProductViewComponent from "./wrap/sub/Sub1ProductViewComponent.jsx";
 import Sub1RegisterDataComponent from "./wrap/sub/Sub1RegisterDataComponent.jsx";
 import Sub1CartComponent from "./wrap/sub/Sub1CartComponent.jsx";
+import Sub1MyLibraryComponent from "./wrap/sub/Sub1MyLibraryComponent";
 import SubAdminSignInComponent from "./wrap/sub/SubAdminSignInComponent";
 import SubAdminSignUpComponent from "./wrap/sub/SubAdminSignUp1Component";
 import SubAdminIdSearchComponent from "./wrap/sub/SubAdminIdSearchComponent";
@@ -75,7 +76,8 @@ export default function WrapComponent(){
                             <Route path="/productDetail" element={<Sub1ProductDetailComponent />} />
                             <Route path="/productView" element={<Sub1ProductViewComponent/>} />
                             <Route path="/registerData" element={<Sub1RegisterDataComponent />} />
-                            <Route path='/cart' element={<Sub1CartComponent/>} />                      
+                            <Route path='/cart' element={<Sub1CartComponent/>} />
+                            <Route path='/myLibrary' element={<Sub1MyLibraryComponent />} />                    
                             <Route path="/subAdminSignIn" element={ <SubAdminSignInComponent /> }/>
                             <Route path="/subAdminSignUp" element={ <SubAdminSignUpComponent /> }/>
                             <Route path="/subAdminIdSearch" element={ <SubAdminIdSearchComponent /> }/>

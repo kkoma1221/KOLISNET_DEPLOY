@@ -31,6 +31,11 @@ export default function Sub1ProductDetailComponent(){
         });
     },[location]);
 
+    const onClickGoCart=(e)=>{
+        e.preventDefault();
+        navigate('/cart')
+    }
+
     return (
         <div className='sub1'>
             <section id="section1">
@@ -126,7 +131,7 @@ export default function Sub1ProductDetailComponent(){
                                     </form>
                                     <div className="go-to-btn-box">
                                         <span className='chk-btn'><input type="checkbox" /></span>
-                                        <a href="!#"><img src="./images/sub/sub1/btn_cart.png" alt="" />바구니담기</a>
+                                        <a href="!#" onClick={onClickGoCart}><img src="./images/sub/sub1/btn_cart.png" alt="" />바구니담기</a>
                                         <a href="!#"><img src="./images/sub/sub1/btn_myLib.png" alt="" />내서재담기</a>
                                     </div>
                                     <div className="pagination">

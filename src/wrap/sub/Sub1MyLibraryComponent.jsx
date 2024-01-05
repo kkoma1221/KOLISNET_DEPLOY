@@ -1,24 +1,25 @@
 import React from 'react';
-import './scss/sub1.scss';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
-export default function Sub1CartComponent(){
-
-    const selector = useSelector((state)=>state);
-    const navigate = useNavigate();
-
-
+export default function Sub1MyLibraryComponent(){
     return (
         <div className='sub1'>
             <section id="section1">
                 <div className="container">
                     <div className="content">
-                        <div className="left"></div>
+                        <div className="left" id='myLibrary'>
+                            <div className="sub-menu">
+                                <ul>
+                                    <li><a href="!#"><img src="./images/sub/sub1/sub_title_arrow.png" alt="" /><span className='on'>관심목록</span></a></li>
+                                    <li><a href="!#"><img src="./images/sub/sub1/sub_title_arrow.png" alt="" /><span>관심지역설정</span></a></li>
+                                    <li><a href="!#"><img src="./images/sub/sub1/sub_title_arrow.png" alt="" /><span>이용자 TAGS</span></a></li>
+                                    <li><a href="!#"><img src="./images/sub/sub1/sub_title_arrow.png" alt="" /><span>오류신고목록</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
                         <div className="right" id='sub1Cart'>
                             <div className="title">
-                                <h2>바구니</h2>
-                                <h3>바구니에 담은 도서리스트를 볼 수 있습니다.</h3>
+                                <h2>관심목록</h2>
+                                <h3>내서재에 추가한 도서리스트를 볼 수 있습니다.</h3>
                             </div>
                             <div className="cart">
                                 <div className="cart-length">
@@ -38,7 +39,7 @@ export default function Sub1CartComponent(){
                                                 <div className="row1">
                                                     <span className='chk-btn'><input type="checkbox" /></span>
                                                     <span className='book-title'>
-                                                        <a href="!#">인더스 강에 일어난 인더스 문명 / 한국역사교육연구회 글 ; 양동석 그림</a>
+                                                        <a href="!#">{`${'location.state.item.bookTitle'}/ ${'location.state.item.bookWriter'}`}</a>
                                                     </span>
                                                 </div>
                                                 <div className="row2">

@@ -69,6 +69,17 @@ export default  function HeaderComponent(){
         });
     }
 
+    const searchFilter=(category, result)=>{
+        let res = result.filter((item)=>item.bookType!==category);
+        const obj = {
+            searchData: res,
+            searchWord: state.keyword
+        }
+        dispatch(searchData(obj));
+        localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+    }
+
+
     const onSubmitSearch=(e)=>{
         e.preventDefault();
         if(state.keyword===''){
@@ -81,35 +92,28 @@ export default  function HeaderComponent(){
             if(state.searchSelect==='title'){
                 let bookData = selector.bookData.bookData;
                 let result = bookData.filter((item)=>item.bookTitle.includes(state.keyword));
+                const obj = {
+                    searchData: result,
+                    searchWord: state.keyword
+                }
                 // console.log(result);
                 if(!state.searchSort.includes('일반도서')){
-                    let res = result.filter((item)=>item.bookType!=='일반도서');
-                    // console.log(res);
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('일반도서', result);
                 }
                 else if(!state.searchSort.includes('잡지/학술지')){
-                    let res = result.filter((item)=>item.bookType!=='잡지/학술지');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('잡지/학술지', result);
                 }
                 else if(!state.searchSort.includes('학위논문')){
-                    let res = result.filter((item)=>item.bookType!=='학위논문');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('학위논문', result);
                 }
                 else if(!state.searchSort.includes('디지털신문')){
-                    let res = result.filter((item)=>item.bookType!=='디지털신문');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('디지털신문', result);
                 }
                 else if(!state.searchSort.includes('멀티미디어/비도서')){
-                    let res = result.filter((item)=>item.bookType!=='멀티미디어/비도서');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('멀티미디어/비도서', result);
                 }
                 else {
-                    dispatch(searchData(result));
+                    dispatch(searchData(obj));
                     localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(result));
                 }
                 dispatch(searchSort(state.searchSort));
@@ -121,34 +125,27 @@ export default  function HeaderComponent(){
                 let bookData = selector.bookData.bookData;
                 let result = bookData.filter((item)=>item.bookWriter.includes(state.keyword));
                 // console.log(result);
+                const obj = {
+                    searchData: result,
+                    searchWord: state.keyword
+                }
                 if(!state.searchSort.includes('일반도서')){
-                    let res = result.filter((item)=>item.bookType!=='일반도서');
-                    // console.log(res);
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('일반도서', result);
                 }
                 else if(!state.searchSort.includes('잡지/학술지')){
-                    let res = result.filter((item)=>item.bookType!=='잡지/학술지');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('잡지/학술지', result);
                 }
                 else if(!state.searchSort.includes('학위논문')){
-                    let res = result.filter((item)=>item.bookType!=='학위논문');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('학위논문', result);
                 }
                 else if(!state.searchSort.includes('디지털신문')){
-                    let res = result.filter((item)=>item.bookType!=='디지털신문');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('디지털신문', result);
                 }
                 else if(!state.searchSort.includes('멀티미디어/비도서')){
-                    let res = result.filter((item)=>item.bookType!=='멀티미디어/비도서');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('멀티미디어/비도서', result);
                 }
                 else {
-                    dispatch(searchData(result));
+                    dispatch(searchData(obj));
                     localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(result));
                 }
                 dispatch(searchSort(state.searchSort));
@@ -160,34 +157,27 @@ export default  function HeaderComponent(){
                 let bookData = selector.bookData.bookData;
                 let result = bookData.filter((item)=>item.bookTitle.includes(state.keyword)||item.bookWriter.includes(state.keyword));
                 // console.log(result);
+                const obj = {
+                    searchData: result,
+                    searchWord: state.keyword
+                }
                 if(!state.searchSort.includes('일반도서')){
-                    let res = result.filter((item)=>item.bookType!=='일반도서');
-                    // console.log(res);
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('일반도서', result);
                 }
                 else if(!state.searchSort.includes('잡지/학술지')){
-                    let res = result.filter((item)=>item.bookType!=='잡지/학술지');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('잡지/학술지', result);
                 }
                 else if(!state.searchSort.includes('학위논문')){
-                    let res = result.filter((item)=>item.bookType!=='학위논문');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('학위논문', result);
                 }
                 else if(!state.searchSort.includes('디지털신문')){
-                    let res = result.filter((item)=>item.bookType!=='디지털신문');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('디지털신문', result);
                 }
                 else if(!state.searchSort.includes('멀티미디어/비도서')){
-                    let res = result.filter((item)=>item.bookType!=='멀티미디어/비도서');
-                    dispatch(searchData(res));
-                    localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
+                    searchFilter('멀티미디어/비도서', result);
                 }
                 else {
-                    dispatch(searchData(result));
+                    dispatch(searchData(obj));
                     localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(result));
                 }
                 dispatch(searchSort(state.searchSort));
@@ -216,16 +206,27 @@ export default  function HeaderComponent(){
                                     </ul>
                                 </div>
                                 <div className="right">
-                                    <ul>
-                                        <li><a href="!#"><img src="./images/header/img_login.png" alt="" /><span>로그인</span></a></li>
-                                        <li><a href="!#"><img src="./images/header/img_join.png" alt="" /><span>회원가입</span></a></li>
-                                        <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
-                                        {
-                                            selector.adminSignIn.관리자로그인정보 !== null && (
+                                    {
+                                        selector.adminSignIn.관리자로그인정보 === null && (
+                                            <ul>
+                                                <li><a href="!#"><img src="./images/header/img_login.png" alt="" /><span>로그인</span></a></li>
+                                                <li><a href="!#"><img src="./images/header/img_join.png" alt="" /><span>회원가입</span></a></li>
+                                                <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
+                                            </ul>
+                                        )
+                                    }
+                                    {
+                                        selector.adminSignIn.관리자로그인정보 !== null && (
+                                            <ul>
+                                                <li className="noA"><img src="./images/header/img_login.png" alt="" /><span>{`${selector.adminSignIn.관리자로그인정보.이름}  님`}</span></li>
+                                                <li><a href="!#"><span>로그아웃</span></a></li>
+                                                <li><a href="!#"><img src="./images/header/img_infochanege.png" alt="" /><span>회원정보수정</span></a></li>
+                                                <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
+                                                <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li>
                                                 <li><Link to="/registerData"><img src="./images/header/icon_book.svg" alt="" /><span>자료등록</span></Link></li>
-                                            )
-                                        }
-                                    </ul>
+                                            </ul>
+                                        )
+                                    }
                                 </div>
                             </nav>
                         </div>
