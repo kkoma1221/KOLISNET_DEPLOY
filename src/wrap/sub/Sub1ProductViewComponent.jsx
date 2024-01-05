@@ -57,8 +57,8 @@ export default function Sub1ProductViewComponent(){
                                                 <div className={`col1${location.state.bookSubject==='사회과학'?' c5696ba':location.state.bookSubject ==='기술과학'?' cc0847b':location.state.bookSubject ==='자연과학'?' cc28000':location.state.bookSubject ==='순수과학'? 'cc28000':location.state.bookSubject==='문학'?' cf45c01':location.state.bookSubject==='어학'?' c00b5b3':location.state.bookSubject==='역사'?' c808080':location.state.bookSubject==='예술'?' c6c9773':location.state.bookSubject==='종교'?' c009dde':location.state.bookSubject==='철학'?' cb073d9':' cea6478'}`}>
                                                     <span className={(location.state.bookSubject === '사회과학'||location.state.bookSubject ==='기술과학'||location.state.bookSubject ==='자연과학'||location.state.bookSubject ==='순수과학')?'word4':'word2'}>{location.state.bookSubject}</span>
                                                 </div>
-                                                <h2>{location.state.bookTitle}</h2>                                        
-                                                <h4>{`${state.library.length}개 도서관 소장`}</h4>
+                                                <h2>{location.state.bookTitle}<h4>{`${state.library.length}개 도서관 소장`}</h4></h2>                                        
+
                                             </div>
                                             <div className="image-box">
                                                 <a href="!#" onClick={onClickShowsns}><span></span></a>

@@ -12,11 +12,6 @@ export default function Sub1ComponentChild({category, title}) {
         navigate('/productDetail', {state:item});
     }
 
-    React.useEffect(()=>{
-        console.log(category);
-        console.log(title);
-    },[category, title]);
-
     return (
         <div className="result-list-box">
             <div className="title">
