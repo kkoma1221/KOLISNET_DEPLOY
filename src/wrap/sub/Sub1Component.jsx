@@ -52,7 +52,7 @@ export default function Sub1Component() {
         else {
             return;
         }
-    },[selector.searchData.searchData, state]);
+    },[selector.searchData.searchData]);
 
     return (
         <div id='sub1' className='sub1'>
