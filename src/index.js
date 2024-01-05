@@ -8,6 +8,8 @@ import confirmModal from './reducer/confirmModal.js';
 import bookData from './reducer/bookData.js';
 import searchData from './reducer/searchData.js';
 import searchSort from './reducer/searchSort.js';
+import currentBook from './reducer/currentBook.js';
+import cart from './reducer/cart.js';
 
 let store = configureStore({
   reducer: {
@@ -15,7 +17,9 @@ let store = configureStore({
     confirmModal,
     bookData,
     searchData,
-    searchSort
+    searchSort,
+    currentBook,
+    cart
   }
 });
 
