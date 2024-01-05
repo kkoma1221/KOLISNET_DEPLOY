@@ -46,7 +46,8 @@ export default function Sub1LeftComponent(){
         let 총류 = [];
         let 기타 = [];
         let 전체 = 0;
-        if(selector.searchData.searchData!==null){
+        if(selector.searchData.searchData !== null){
+            // console.log(selector.searchData.searchData);
             전체 = selector.searchData.searchData.length;
             일반도서 = selector.searchData.searchData.filter((item)=>item.bookType==='일반도서');
             잡지학술지 = selector.searchData.searchData.filter((item)=>item.bookType==='잡지/학술지');
@@ -86,6 +87,9 @@ export default function Sub1LeftComponent(){
                 총류 : 총류,
                 기타 : 기타,
             });
+        }
+        else if(selector.searchData.searchData===null){
+            return;
         }
     },[selector.searchData.searchData]);
 

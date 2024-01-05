@@ -10,6 +10,7 @@ export default function Sub1ComponentChild({category, title}) {
         // console.log(item);
         // console.log(idx);
         navigate('/productDetail', {state:item});
+        localStorage.setItem('KOLISNET_VIEW_BOOK', JSON.stringify(item));
     }
 
     return (
@@ -30,9 +31,9 @@ export default function Sub1ComponentChild({category, title}) {
                 {
                     category.length > 0 && (
                         category.map((item, idx)=>{
-                            // console.log(item.bookLibrary);
-                            let library = [];
-                            library = item.bookLibrary.split(',');
+                            // console.log(JSON.parse(item.bookLibrary));
+                            // let library = [];
+                            // library = item.bookLibrary.split(',');
                             // console.log(library);
                             return (
                                 <li className='list' key={idx}>
@@ -47,7 +48,7 @@ export default function Sub1ComponentChild({category, title}) {
                                         </div>
                                         <div className="row2">
                                             <h4>{`${item.bookStore} : 1개 판 : ${item.bookYear}`}</h4>
-                                            <h5>{`${library.length}개 도서관 소장`}</h5>
+                                            <h5>{`${(JSON.parse(item.bookLibrary)).length}개 도서관 소장`}</h5>
                                         </div>
                                     </div>
                                 </li>

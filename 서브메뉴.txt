@@ -1,0 +1,67 @@
+기술과학    #c0847b
+문학        #f45c01
+사회과학    #5696ba
+순수과학    #c28000
+어학        #00b5b3
+역사        #808080
+예술        #6c9773
+자연과학    #c28000
+종교        #009dde
+철학        #b073d9
+총류        #ea6478
+기타        #ea6478
+
+학술논문    #ea6478
+
+[1] 자료등록 프론트앤드
+자료유형: input[type='radio']
+주제: select
+책제목: input[type='text']
+저자: input[type='text']
+주기사항: input[type='text']
+발행년도: input[type='text']
+발행기관: input[type='text']
+분류기호: input[type='text']
+저작번호: input[type='text']
+표준번호: input[type='text']
+가격: input[type='text']
+페이지: input[type='text']
+언어: select
+보관: input[type='radio']
+소장도서관: input[type='checkbox']
+
+[2] 백앤드
+테이블 생성 kolisnet_register_data_table_create.php
+bookType        VARCHAR(10)    COMMENT '자료유형',
+bookSubject     VARCHAR(6)      COMMENT '주제',
+bookTitle       VARCHAR(250)      COMMENT '책제목',
+bookWriter      VARCHAR(250)      COMMENT '저자',
+bookjuki        VARCHAR(100)      COMMENT '주기사항',
+bookYear        VARCHAR(5)      COMMENT '발행년도',
+bookPublisher   VARCHAR(100)      COMMENT '발행기관',
+bookSortNum     VARCHAR(30)      COMMENT '분류기호',
+bookCopyright   VARCHAR(13)      COMMENT '저작번호',
+bookStandardNum VARCHAR(30)      COMMENT '표준번호',
+bookPrice       INT              COMMENT '가격',
+bookPage        INT              COMMENT '페이지',
+bookLanguage    VARCHAR(30)      COMMENT '언어',
+bookStore       VARCHAR(10)      COMMENT '보관',
+bookLibrary     VARCHAR(250)     COMMENT '소장도서관',
+
+'$bookType','$bookSubject','$bookTitle','$bookWriter','$bookjuki','$bookYear','$bookPublisher','$bookSortNum','$bookCopyright','$bookStandardNum','$bookPrice','$bookPage','$bookLanguage','$bookStore','$bookLibrary'
+[3] 데이터베이스
+책제목
+저자
+자료유형 : 일반도서, 잡지/학술지, 학위논문, 디지털신문, 멀티미디어/비도서
+발행년도 : 아무것도 안쓰면 발행년불명
+발행기관
+분류기호
+저작번호
+주제 : 기술과학, 문학, 사회과학, 순수과학, 어학, 역사, 예술, 자연과학, 종교, 철학, 총류, 기타
+언어 : Korean, Japanese, Chinese, English, Vietnamese, Cambodian, Thai, Russian, French, Spanish, Italian, German, 언어불명
+보관 : 온라인, 오프라인, 온오프라인
+소장도서관: [] 국회도서관소장자료, 대학도서관종합목록, 기타도서관 이름 입력
+가격
+페이지
+주기사항
+표준번호

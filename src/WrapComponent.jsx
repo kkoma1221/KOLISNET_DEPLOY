@@ -50,13 +50,15 @@ export default function WrapComponent(){
             }
         })
         .then(()=>{
-            if(localStorage.getItem('KOLISNET_REGISTER_DATA')!==null){
+            if(localStorage.getItem('KOLISNET_REGISTER_DATA')!== null){
                 const result = JSON.parse(localStorage.getItem('KOLISNET_REGISTER_DATA'));
                 dispatch(bookData(result));
             }
-            if(localStorage.getItem('KOLISNET_SEARCH_DATA')!==null){
+            if(localStorage.getItem('KOLISNET_SEARCH_DATA')!== null){
                 const result = JSON.parse(localStorage.getItem('KOLISNET_SEARCH_DATA'));
                 dispatch(searchData(result));
+                // console.log(result);
+                // console.log(selector.searchData.searchData);
             }
         })
         .catch((err)=>{
