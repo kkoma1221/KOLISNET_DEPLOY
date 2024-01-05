@@ -1,0 +1,1004 @@
+@mixin category(){
+    width: 42px;
+    height: 42px;
+    padding: 5px 3px;
+    text-align: center;
+    word-break: break-all;
+    border-radius: 50%;
+    &.cc0847b {
+        background: #c0847b;
+    }
+    &.cf45c01 {
+        background: #f45c01;
+    }
+    &.c5696ba {
+        background: #5696ba;
+    }
+    &.cc28000 {
+        background: #c28000;
+    }
+    &.c00b5b3 {
+        background: #00b5b3;
+    }
+    &.c808080 {
+        background: #808080;
+    }
+    &.c6c9773 {
+        background: #6c9773;
+    }
+    &.c009dde {
+        background: #009dde;
+    }
+    &.cb073d9 {
+        background: #b073d9;
+    }
+    &.cea6478 {
+        background: #ea6478;
+    }
+
+    span { 
+        line-height: 32px;
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        color: #fff;
+        &.word4 {
+            line-height: 16px;
+        }
+    }
+}
+
+@mixin checkbox(){
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    background: url(../../../../public/images/sub/sub1/checkbox.jpg) 0 3px no-repeat;
+    cursor: pointer;
+    &:checked {
+        background: url(../../../../public/images/sub/sub1/checkbox_select.jpg) 0 3px no-repeat;
+    }
+}
+
+@mixin goBackBtn($borderColor, $bgColor){
+    border: 1px solid $borderColor;
+    background: $bgColor;
+    border-radius: 6px;
+    display: block;
+    height: 100%;
+    line-height: 32px;
+    padding: 0 12px;
+    color: #fff;
+    font-weight: 500;
+    i {
+        display: inline-flex;
+        width: 12px;
+        height: 12px;
+        margin: 0 5px 3px 0;
+        background: url(../../../../public/images/sub/sub1/btn_back.png) 0 50% no-repeat;
+    }
+    &:hover {
+        background: #808080;
+        border-color: #808080;
+    }
+}
+
+@mixin infoBox(){
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px;
+    border-top: 1px dotted #333;
+    border-bottom: 1px dotted #333;
+    ul {
+        width: 100%;
+        li {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin: 10px 0 0 0;
+            font-size: 14px;
+            line-height: 170%;
+            &:nth-child(1){
+                margin: 0;
+            }
+            span {
+                width: 120px;
+                color: #808080;
+                font-weight: 600;
+            }
+            p {
+                padding: 0 0 0 10px;
+                color: #555;
+            }
+        }
+    }
+}
+
+@mixin blueBtn($lineHeight, $borderRadius){
+    display: inline-block;
+    padding: 0 8px;
+    line-height: $lineHeight;
+    border: 1px solid #4f918e;
+    background: #4f918e;
+    border-radius: $borderRadius;
+    text-align: center;
+    color: #fff;
+    img {
+        margin: 0 5px 0 0;
+        transform: translateY(-1px);
+    }
+}
+
+.sub1 {
+    width: 100%;
+    font-family: 'Nanum Gothic';
+    #section1 {
+        width: 100%;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        .container {
+            width: 100%;
+            .search-bar {
+                width: 100%;
+                height: 40px;
+                background: #ebebeb;
+                .tab-menu {
+                    width: 100%;
+                    padding: 8px 0 0 0;
+                    height: 39px;
+                    ul {
+                        width: 100%;
+                        max-width: 1280px;
+                        margin: 0 auto;
+                        padding: 0 0 0 257px;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        li {
+                            padding: 0 20px 0 0;
+                            a {
+                                display: block;
+                                padding: 0 20px;
+                                color: #808080;
+                                font-size: 14.5px;
+                                font-weight: 300;
+                                line-height: 32px;
+                                min-width: 100px;
+                                text-align: center;
+                                position: relative;
+                                &.on {
+                                    color: #111;
+                                    background: #ccc;
+                                    font-weight: bold;
+                                    border-radius: 6px 6px 0 0;
+                                    &::after {
+                                        content: '';
+                                        position: absolute;
+                                        top: 100%;
+                                        left: 50%;
+                                        margin-left: -7px;
+                                        border-top: 7px solid #ccc;
+                                        border-right: 7px solid transparent;
+                                        border-left: 7px solid transparent;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .content {
+                width: 100%;
+                max-width: 1280px;
+                margin: 0 auto;
+                display: flex;
+                .left {
+                    width: 220px;
+                    padding: 60px 0 44px;
+                    border-right: 1px solid #ccc;
+                    .title {
+                        width: 100%;
+                        margin: 0 0 25px 0;
+                        h2 {
+                            font-size: 22px;
+                            font-weight: 600;
+                            &::after {
+                                content: '';
+                                display: block;
+                                width: 20px;
+                                height: 3px;
+                                margin-top: 15px;
+                                background: #2c9f60;
+                            }
+                        }
+                    }
+                    .filter-list {
+                        width: 100%;
+                        > ul {
+                            width: 100%;
+                            margin: 10px 0 0 0;
+                            > li {
+                                width: 100%;
+                                margin: 0 0 20px 0;
+                                span {
+                                    img {
+                                        padding: 0 6px 0 0;
+                                    }
+                                    strong {
+                                        font-weight: 600;
+                                        color: #555;
+                                    }
+                                }
+                                ul {
+                                    padding: 0 0 0 17px;
+                                    margin: 10px 0 0 0;
+                                    li.filter {
+                                        line-height: 22px;
+                                        a {
+                                            font-size: 13px;
+                                            color: #006c95;
+                                            span {
+                                                font-size: 13px;
+                                                color: #808080;
+                                            }
+                                        }
+                                    }
+                                }
+                                button {
+                                    margin: 6px 0 0 17px;
+                                    font-size: 12px;
+                                    color: #fff;
+                                    background: #808080;
+                                    border-radius: 9px;
+                                    line-height: 17px;
+                                    padding: 0 6px;
+                                    border: 1px solid #808080;
+                                }
+                            }
+                        }
+                    }
+                }
+                .right {
+                    width: calc(100% - 220px);
+                    padding: 40px 0 70px 50px;
+                    .search-result {
+                        width: 100%;
+                        .filter-box {
+                            width: 100%;
+                            margin: 0 0 20px 0;
+                            padding: 10px;
+                            border-top: 1px dotted #ccc;
+                            border-bottom: 1px dotted #ccc;
+                            display: flex;
+                            align-items: center;
+                            .button-box{
+                                &::after {
+                                    display: inline-block;
+                                    content: '';
+                                    width: 2px;
+                                    height: 10px;
+                                    margin: 0 12px;
+                                    background: #ccc;
+                                    vertical-align: middle;
+                                }
+                                a {
+                                    display: inline-block;
+                                    font-size: 14px;
+                                    color: #555;
+                                    padding: 0 0 1px 0;
+                                    vertical-align: middle;
+                                    &::before {
+                                        content: '';
+                                        display: inline;
+                                        padding-left: 18px;
+                                        background: url(../../../../public/images/sub/sub1/btn_clear_all.png) 0 50% no-repeat;
+                                    }
+                                }
+                            }
+                            ul {
+                                display: flex;
+                                align-items: center;
+                                li {
+                                    margin: 0 20px 0 0;
+                                    a {
+                                        display: inline-block;
+                                        font-size: 14px;
+                                        color: #555;
+                                        padding: 0 0 1px 0;
+                                        span {
+                                            display: inline-block;
+                                            background: url(../../../../public/images/sub/sub1/btn_clear.png) 100% 50% no-repeat;
+                                            width: 13px;
+                                            height: 13px;
+                                            margin: 0 0 0 1px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .result-list-group {
+                            width: 100%;
+                            display: flex;
+                            margin: 0 0 0 -40px;
+                            .box {
+                                width: calc(50% - 40px);
+                                margin: 0 0 0 40px;
+                                .result-list-box {
+                                    width: 100%;
+                                    margin: 0 0 25px 0;
+                                    padding: 15px;
+                                    border: 1px solid #d3d3d3;
+                                    border-radius: 10px;
+                                    background: #fff;
+                                    box-shadow: 5px 5px 0 0 rgba(229,229,229,0.8);
+                                    .title {
+                                        width: 100%;
+                                        padding: 10px 5px;
+                                        border-bottom: 4px solid #e5e5e5;
+                                        display: flex;
+                                        align-items: baseline;
+                                        justify-content: space-between;
+                                        span {
+                                            display: flex;
+                                            align-items: baseline;
+                                            h3 {
+                                                font-size: 20px;
+                                                color: #006c95;
+                                            }
+                                            em {
+                                                font-size: 13px;
+                                                color: #808080;
+                                                font-weight: 600;
+                                                margin: 0 0 0 10px;
+                                            }
+                                            img {
+                                                margin: 0 0 0 10px;
+                                                transform: translateY(3px);
+                                            }
+                                        }
+                                        a {
+                                            font-size: 13px;
+                                            color: #006c95;
+                                            font-weight: 600;
+                                        }
+                                    }
+                                    ul {
+                                        width: 100%;
+                                        li {
+                                            width: 100%;
+                                            &.empty {   
+                                                padding: 10px 0;
+                                                border-bottom: 1px solid #ddd;
+                                                text-align: center;
+                                                p {
+                                                    color: #555;
+                                                    font-size: 14px;
+                                                    line-height: 160%;
+                                                }
+                                            }
+                                            &.list {
+                                                border-bottom: 1px dotted #6e6e6e;
+                                                padding: 15px 0;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                .col1 {
+                                                    @include category();
+                                                }
+                                                .result-info {
+                                                    width: calc(100% - 55px);
+                                                    .row1 {
+                                                        width: 100%;
+                                                        a {
+                                                            display: inline-block;
+                                                            height: 40px;
+                                                            width: 100%;
+                                                            padding: 0 0 1px 0;
+                                                            overflow: hidden;
+                                                            p {
+                                                                display: inline;
+                                                                line-height: 20px;
+                                                                color: #000;
+                                                                font-weight: bold;
+                                                                text-overflow: ellipsis;
+                                                                overflow: hidden;
+                                                                font-size: 16px;
+                                                                padding-bottom: 1px;
+                                                            }
+                                                            b {
+                                                                display: inline;
+                                                                line-height: 20px;
+                                                                font-size: 16px;
+                                                                color: #1577a3;
+                                                                font-weight: 600;
+                                                            }
+                                                            &:hover {
+                                                                p {
+                                                                    color: #333;
+                                                                    text-decoration: underline;
+                                                                }
+                                                                b {
+                                                                    color: #333;
+                                                                    text-decoration: underline;
+                                                                }
+
+                                                            }
+                                                        }
+                                                    }
+                                                    .row2 {
+                                                        width: 100%;
+                                                        margin: 8px 0 0 0;
+                                                        display: flex;
+                                                        align-items: baseline;
+                                                        justify-content: space-between;
+                                                        h4 {
+                                                            font-size: 13px;
+                                                            color: #555;
+                                                        }
+                                                        h5 {
+                                                            font-size: 13px;
+                                                            color: #555;
+                                                            font-weight: 600;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &#productDetail {
+                        .result-view{
+                            width: 100%;
+                            .detail-info {
+                                width: 100%;
+                                .title {
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    .text-box {
+                                        display: flex;
+                                        align-items: center;
+                                        .col1 {
+                                            @include category();
+                                        }
+                                        h2 {
+                                            font-size: 20px;
+                                            color: #006c95;
+                                            font-weight: 600;
+                                            margin: 0 0 0 10px;
+                                        }
+                                    }
+                                    .button-box {
+                                        height: 34px;
+                                        overflow: hidden;
+                                        a {
+                                            @include goBackBtn(#b1b1b1, #b1b1b1);
+                                        }
+                                    }
+                                }
+                                .info-box {
+                                    @include infoBox();
+                                }
+                            }
+                            .search-list {
+                                width: 100%;
+                                margin: 40px 0 20px 0;
+                                padding: 0 0 20px 0;
+                                .edition-sort {
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: start;
+                                    justify-content: space-between;
+                                    height: 40px;
+                                    .title {
+                                        h3 {
+                                            font-size: 17px;
+                                            font-weight: 600;
+                                            color: #000;
+                                            line-height: 26px;
+                                        }
+                                    }
+                                    .sort {
+                                        select {
+                                            height: 30px;
+                                            min-width: 70px;
+                                            padding: 0 18px 0 5px;
+                                            border: 1px solid #ccc;
+                                            margin: 0 3px;
+                                            appearance: none;
+                                            background: url(../../../../public/images/sub/sub1/btn_combo.png) right 8px center no-repeat;
+                                            font-size: 14px;
+                                            option {
+                                                font-size: 14px;
+                                                padding: 0 2px 1px;
+                                            }
+                                        }
+                                        button {
+                                            width: 50px;
+                                            height: 30px;
+                                            background-color: #000;
+                                            border: 1px solid #000;
+                                            color: #fff;
+                                            padding: 0 4px;
+                                            text-align: center;
+                                            border-radius: 6px;
+                                            cursor: pointer;
+                                            &:hover {
+                                                background-color: #808080;
+                                                border-color: #808080;
+                                            }
+                                        }
+                                    }
+                                }
+                                .edition-list-form {
+                                    width: 100%;
+                                    .edition-list {
+                                        width: 100%;
+                                        > ul {
+                                            width: 100%;
+                                            border-top: 1px solid #b3bdcc;
+                                            > li {
+                                                width: 100%;
+                                                padding: 15px 0;
+                                                border-bottom: 1px solid #e4e4e4;
+                                                &:last-child {
+                                                    border-bottom: 2px solid #b3bdcc;
+                                                }
+                                                .row1 {width: 100%;
+                                                    .chk-btn{
+                                                        display: inline-flex;
+                                                        width: 20px;
+                                                        height: 20px;
+                                                        input[type='checkbox']{
+                                                            @include checkbox();
+                                                        }
+                                                    }
+                                                    .book-title {
+                                                        margin: 0 0 0 5px;
+                                                        a {
+                                                            display: inline-flex;
+                                                            font-size: 17px;
+                                                            font-weight: 600;
+                                                            color: #555;
+                                                            padding: 0 0 1px 0;
+                                                            &:hover {
+                                                                text-decoration: underline;
+                                                            }
+                                                            &::after {
+                                                                content: '';
+                                                                display: inline;
+                                                                padding: 0 0 0 18px;
+                                                                background: url(../../../../public/images/sub/sub1/ico_blank.png) 100% 50% no-repeat;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                .row2 {
+                                                    width: 100%;
+                                                    margin: 6px 0 6px 25px;
+                                                    ul {
+                                                        width: 100%;
+                                                        display: flex;
+                                                        align-items: baseline;
+                                                        li {
+                                                            display: flex;
+                                                            margin: 2px 10px 0 0;
+                                                            padding: 0 11px 0 0;
+                                                            line-height: 22px;
+                                                            position: relative;
+                                                            &:nth-child(1), &:nth-child(2) {
+                                                                &::after {
+                                                                    content: '';
+                                                                    display: block;
+                                                                    position: absolute;
+                                                                    top: 5px;
+                                                                    right: 0;
+                                                                    width: 1px;
+                                                                    height: 11px;
+                                                                    background: #ccc;
+                                                                }
+                                                            }
+                                                            h5 {
+                                                                font-size: 14px;
+                                                                color: #555;
+                                                            }
+                                                            a{
+                                                                font-size: 14px;
+                                                                color: #1577a3;
+                                                                text-decoration: underline;
+                                                                margin: 0 0 0 4px;
+                                                                img {}
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .go-to-btn-box {
+                                    width: 100%;
+                                    padding: 10px 0;
+                                    .chk-btn{
+                                        input[type='checkbox']{
+                                            @include checkbox();
+                                        }
+                                    }
+                                    a {
+                                        @include blueBtn(25px, 3px);
+                                        &:nth-child(2) {
+                                            margin: 0 7px;
+                                        }
+                                    }
+                                }
+                                .pagination {
+                                    width: 100%;
+                                    margin: 25px 0 0 0;
+                                    text-align: center;
+                                    ul {
+                                        width: 100%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        li {
+                                            margin: 0 5px;
+                                            span {
+                                                display: inline-block;
+                                                padding: 0 3px;
+                                                min-width: 26px;
+                                                line-height: 20px;
+                                                vertical-align: top;
+                                                color: #fff;
+                                                background: #6e6e6e;
+                                                border: 1px solid #6e6e6e;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &#productView {
+                        .result-view {
+                            width: 100%;
+                            .detail-info {
+                                width: 100%;
+                                .title {
+                                    width: 100%;
+                                    .row1 {
+                                        width: 100%;
+                                        display: flex;
+                                        align-items: start;
+                                        justify-content: space-between;
+                                        .text-box {
+                                            display: flex;
+                                            align-items: center;
+                                            .col1 {
+                                                @include category();
+                                            }
+                                            h2 {
+                                                font-size: 20px;
+                                                color: #006c95;
+                                                font-weight: 600;
+                                                margin: 0 10px;
+                                            }
+                                            h4 {
+                                                font-size: 13px;
+                                                color: #808080;
+                                                font-weight: 600;
+                                            }
+                                        }
+                                        .image-box {
+                                            position: relative;
+                                            > a {
+                                                position: absolute;
+                                                top: 3px;
+                                                right: 0;
+                                                display: block;
+                                                width: 42px;
+                                                height: 40px;
+                                                background: url(../../../../public/images/sub/sub1/ico_sns.png) center top no-repeat;
+                                                z-index: 10;
+                                                border-radius: 50%;
+                                            }
+                                            .sns {
+                                                opacity: 0;
+                                                position: absolute;
+                                                top: 3px;
+                                                right: -40px;
+                                                transition: all 0.6s ease-in-out;
+                                                z-index: 1;
+                                                width: 0;
+                                                display: flex;
+                                                a {
+                                                    display: inline-block;
+                                                    width: 40px;
+                                                    height: 40px;
+                                                    margin: 0 0 0 5px;
+                                                    border-radius: 50%;
+                                                    span {
+                                                        display: block;
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        img {
+                                                            width: 40px;
+                                                            height: 40px;
+                                                        }
+                                                    }
+                                                    &:nth-child(1){
+                                                        span {
+                                                            background: #445D97;
+                                                            border-radius: 50%;
+                                                        }
+                                                    }
+                                                    &:nth-child(2){
+                                                        span {
+                                                            background: #2FB14A;
+                                                            border-radius: 50%;
+                                                        }
+                                                    }
+                                                    &:nth-child(3){
+                                                        span {
+                                                            background: #FFE600;
+                                                            border-radius: 50%;
+                                                        }
+                                                    }
+                                                }
+                                                &.on {
+                                                    opacity: 1;
+                                                    right: 60px;
+                                                    width: 135px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .row2 {
+                                        width: 100%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: space-between;
+                                        margin: 20px 0;
+                                        .button-box {
+                                            height: 34px;
+                                            display: flex;
+                                            align-items: center;
+                                            a {
+                                                @include goBackBtn(#000, #000);
+                                                margin: 0 3px;
+                                                &:first-child{
+                                                    margin: 0 3px 0 0;
+                                                }
+                                            }
+                                        }
+                                        .go-back-btn {
+                                            height: 34px;
+                                            a {
+                                                @include goBackBtn(#b1b1b1, #b1b1b1);
+                                            }
+                                        }
+                                    }
+                                }
+                                .info-box {
+                                    @include infoBox();
+                                }
+                                .page {
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: baseline;
+                                    justify-content: space-between;
+                                    ul.pagination {
+                                        display: flex;
+                                        align-items: baseline;
+                                        justify-content: space-between;
+                                        li {
+                                            position: relative;
+                                            a {
+                                                display: inline-block;
+                                                padding: 0 10px;
+                                                font-weight: 700;
+                                                line-height: 30px;
+                                                text-align: center;
+                                                font-size: 15px;
+                                                color: #555;
+                                                img {
+                                                    transform: translateY(-1px);
+                                                }
+                                            }
+                                            &:nth-child(2){
+                                                &::before {
+                                                    content: '';
+                                                    position: absolute;
+                                                    top: 10px;
+                                                    left: 0;
+                                                    width: 1px;
+                                                    height: 10px;
+                                                    background: #ccc;
+                                                }
+                                            }
+                                            p {
+                                                font-size: 14px;
+                                                vertical-align: bottom;
+                                                line-height: 28px;
+                                                em {
+                                                    font-size: 16px;
+                                                    color: #555;
+                                                    font-weight: 600;
+                                                    vertical-align: top;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .button-box {
+                                        ul {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            li {
+                                                a {
+                                                    @include blueBtn(34px, 6px);
+                                                }
+                                                &:nth-child(2) {
+                                                    margin: 0 7px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &#sub1Cart {
+                        padding: 60px 0 70px 50px;
+                        .title {
+                            width: 100%;
+                            display: flex;
+                            align-items: baseline;
+                            margin: 0 0 20px 0;
+                            h2 {
+                                font-size: 24px;
+                                font-weight: 600;
+                                color: #006c95;
+                            }
+                            h3 {
+                                margin: 0 0 0 10px;
+                                font-size: 13px;
+                                color: #666;
+                                &::before{
+                                    content: '';
+                                    display: inline-block;
+                                    width: 1px;
+                                    height: 10px;
+                                    margin-right: 5px;
+                                    background: #999;
+                                }
+                            }
+                        }
+                        .cart {
+                            width: 100%;
+                            min-height: 400px;
+                            .cart-length {
+                                width: 100%;
+                                margin: 20px 0 0 0;
+                                padding: 0 0 5px 0;
+                                p {
+                                    font-size: 14px;
+                                    color: #000;
+                                    font-weight: 600;
+                                    strong {
+                                        font-weight: 600;
+                                        color: #1c7b9e;
+                                        display: inline-block;
+                                        transform: translateY(-2px);
+                                    }
+                                }
+                            }
+                            form {
+                                width: 100%;
+                                .cart-content {
+                                    width: 100%;
+                                    .select-box{
+                                        width: 100%;
+                                        border-top: 1px solid #b3bdcc;
+                                        padding: 10px 0;
+                                        label {
+                                            input[type='checkbox']{
+                                                @include checkbox();
+                                            }
+                                        }
+                                        button {
+                                            margin: 0 0 0 5px;
+                                            font-size: 14.5px;
+                                            @include blueBtn(25px, 3px)
+                                        }
+                                    }
+                                    > ul {
+                                        width: 100%;
+                                        border-top: 1px solid #b3bdcc;
+                                        > li {
+                                            width: 100%;
+                                            padding: 15px 0;
+                                            border-bottom: 1px solid #e4e4e4;
+                                            &.empty {
+                                                text-align: center;
+                                                padding: 10px 0;
+                                                border-bottom-color: #ddd;
+                                                p {}
+                                            }
+                                            .row1 {width: 100%;
+                                                .chk-btn{
+                                                    display: inline-flex;
+                                                    width: 20px;
+                                                    height: 20px;
+                                                    input[type='checkbox']{
+                                                        @include checkbox();
+                                                    }
+                                                }
+                                                .book-title {
+                                                    margin: 0 0 0 5px;
+                                                    a {
+                                                        display: inline-flex;
+                                                        font-size: 17px;
+                                                        font-weight: 600;
+                                                        color: #555;
+                                                        padding: 0 0 1px 0;
+                                                        &:hover {
+                                                            text-decoration: underline;
+                                                        }
+                                                        &::after {
+                                                            content: '';
+                                                            display: inline;
+                                                            padding: 0 0 0 18px;
+                                                            background: url(../../../../public/images/sub/sub1/ico_blank.png) 100% 50% no-repeat;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .row2 {
+                                                width: 100%;
+                                                margin: 6px 0 6px 25px;
+                                                ul {
+                                                    width: 100%;
+                                                    display: flex;
+                                                    align-items: baseline;
+                                                    li {
+                                                        display: flex;
+                                                        align-items: baseline;
+                                                        margin: 2px 10px 0 0;
+                                                        padding: 0 11px 0 0;
+                                                        line-height: 22px;
+                                                        position: relative;
+                                                        &:nth-child(1), &:nth-child(2) {
+                                                            &::after {
+                                                                content: '';
+                                                                display: block;
+                                                                position: absolute;
+                                                                top: 5px;
+                                                                right: 0;
+                                                                width: 1px;
+                                                                height: 11px;
+                                                                background: #ccc;
+                                                            }
+                                                        }
+                                                        h5 {
+                                                            font-size: 14px;
+                                                            color: #555;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
