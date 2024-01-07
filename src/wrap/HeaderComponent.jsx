@@ -218,8 +218,9 @@ export default  function HeaderComponent(){
                                                 <li><a href="!#"><span>로그아웃</span></a></li>
                                                 <li><a href="!#"><img src="./images/header/img_infochanege.png" alt="" /><span>회원정보수정</span></a></li>
                                                 <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
-                                                <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li>
+                                                {/* <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li> */}
                                                 <li><Link to="/registerData"><img src="./images/header/icon_book.svg" alt="" /><span>자료등록</span></Link></li>
+                                                <li><Link to="/dataList"><img src="./images/header/img_mylibrary.png" alt="" /><span>자료목록</span></Link></li>
                                             </ul>
                                         )
                                     }
