@@ -1,0 +1,111 @@
+#sub1DataList {
+    width: 100%;
+    position: absolute;
+    z-index: 10;
+    top: 128px;
+    left: 0;
+    background: #eee;
+    #section1 {
+        width: 100%;
+        .container {
+            width: 100%;
+            padding: 0 0 150px 0;
+            max-width: 1280px;
+            margin: 0 auto;
+            .title {
+                padding: 50px 0;
+                h2 {
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: #062C5D;
+                }
+            }
+            .content {
+                width: 100%;
+                li {
+                    height: 50px;
+                    border-bottom: 1px solid #333;
+                    border-left: 1px solid #333;
+                    padding: 15px 0;
+                    text-align: center;
+                    &.col1 {
+                        width: 50px;
+                    }
+                    &.col2 {
+                        width: 120px;
+                    }
+                    &.col3 {
+                        width: 100px;
+                    }
+                    &.col4 {
+                        width: 510px;
+                    }
+                    &.col5 {
+                        width: 250px;
+                    }
+                    &.col6 {
+                        width: 150px;
+                    }
+                    &.col7 {
+                        width: 50px;
+                    }
+                    &.col8 {
+                        width: 50px;
+                        border-right: 1px solid #333;
+                    }
+                }
+                .list-header {
+                    width: 100%;
+                    ul {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        background: #fafafa;
+                        border-top: 3px solid #333;
+                        li {
+                            span {
+                                font-size: 15.5px;
+                                font-weight: 600;
+                                color: #062C5D;
+                            }
+                        }
+                    }
+                }
+                .list-data {
+                    width: 100%;
+                    ul {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        background: #fff;
+                        li {
+                            &.col4 {
+                                text-align: left;
+                                padding: 10px;
+                                display: flex;
+                                align-items: center;
+                                line-height: 110%;
+                            }
+                            &.col5, &.col6 {
+                                text-align: left;
+                                padding: 15px 10px;
+                            }
+                            span {
+                                font-size: 12px;
+                            }
+                            button {
+                                border: 0;
+                                background: none;
+                                cursor: pointer;
+                                img {
+                                    width: 18px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
