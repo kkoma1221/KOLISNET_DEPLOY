@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { confirmModal } from '../../reducer/confirmModal';
 import { cartMethod } from '../../reducer/cart';
+import { myLibraryMethod } from '../../reducer/myLibrary';
 
 export default function Sub1ProductDetailComponent(){
 
@@ -71,9 +72,6 @@ export default function Sub1ProductDetailComponent(){
                 }
 
                 let result = cart.map((item)=>item.bookCopyright === currentBook.bookCopyright);
-                // console.log(currentBook.bookCopyright);
-                // console.log(result);
-                // console.log(cart);
 
                 if(result.includes(true)){
                     confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
@@ -89,11 +87,53 @@ export default function Sub1ProductDetailComponent(){
                     currentBook: cart
                 });
                 dispatch(cartMethod(cart));
+
+                // console.log(currentBook.bookCopyright);
+                // console.log(result);
+                // console.log(cart);
             }
             else if(selector.adminSignIn.관리자로그인정보!==null){
 
             }
         }
+    }
+
+    const onClickGoMyLibrary=(e)=>{
+        e.preventDefault();
+        if(state.bookCheck.length < 1){
+            confirmModalMethod('자료를 선택하세요.');
+        }
+        else {
+            if(selector.adminSignIn.관리자로그인정보===null){
+                confirmModalMethod('로그인이 필요한 메뉴입니다.');
+            }
+            else if(selector.adminSignIn.관리자로그인정보!==null){
+                let currentBook = selector.currentBook.currentBook;
+                let library = [];
+                navigate('/myLibrary');
+                if(localStorage.getItem('KOLISNET_MYLIBRARY')!==null){
+                    library = JSON.parse(localStorage.getItem('KOLISNET_MYLIBRARY'));
+                }
+
+                let result = library.map((item)=>item.bookCopyright === currentBook.bookCopyright);
+
+                if(result.includes(true)){
+                    confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
+                }
+                else{
+                    library = [...library, currentBook];
+                    confirmModalMethod('바구니에 저장되었습니다.'); 
+                }
+
+                localStorage.setItem('KOLISNET_MYLIBRARY', JSON.stringify(library));
+                setState({
+                    ...state,
+                    currentBook: library
+                });
+                dispatch(myLibraryMethod(library));
+            }
+        }
+
     }
 
     return (
@@ -210,7 +250,7 @@ export default function Sub1ProductDetailComponent(){
                                             />
                                         </span>
                                         <a href="!#" onClick={onClickGoCart}><img src="./images/sub/sub1/btn_cart.png" alt="" />바구니담기</a>
-                                        <a href="!#"><img src="./images/sub/sub1/btn_myLib.png" alt="" />내서재담기</a>
+                                        <a href="!#" onClick={onClickGoMyLibrary}><img src="./images/sub/sub1/btn_myLib.png" alt="" />내서재담기</a>
                                     </div>
                                     <div className="pagination">
                                         <ul>

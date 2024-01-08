@@ -16,9 +16,11 @@
     $bookLanguage = $_POST['bookLanguage'];
     $bookStore = $_POST['bookStore'];
     $bookLibrary = $_POST['bookLibrary'];
+    $bookOtherLibrary = $_POST['bookOtherLibrary'];
 
-    $SQL = "INSERT INTO kolisnet_register_data_table (bookType,bookSubject,bookTitle,bookWriter,bookjuki,bookYear,bookPublisher,bookSortNum,bookCopyright,bookStandardNum,bookPrice,bookPage,bookLanguage,bookStore,bookLibrary)
-            VALUES ('$bookType','$bookSubject','$bookTitle','$bookWriter','$bookjuki','$bookYear','$bookPublisher','$bookSortNum','$bookCopyright','$bookStandardNum','$bookPrice','$bookPage','$bookLanguage','$bookStore','$bookLibrary')";
+    $SQL = "UPDATE kolisnet_register_data_table
+            SET bookType='$bookType', bookSubject='$bookSubject', bookTitle='$bookTitle', bookWriter='$bookWriter', bookjuki='$bookjuki', bookYear='$bookYear', bookPublisher='$bookPublisher', bookSortNum='$bookSortNum', bookCopyright='$bookCopyright',bookStandardNum='$bookStandardNum', bookPrice='$bookPrice', bookPage='$bookPage', bookLanguage='$bookLanguage',bookStore='$bookStore',bookLibrary='$bookLibrary', bookOtherLibrary='$bookOtherLibrary'
+            WHERE bookCopyright='$bookCopyright'";
 
     $res = mysqli_query($conn, $SQL);
 
@@ -28,4 +30,5 @@
     else {
         echo 0;
     }
+
 ?>

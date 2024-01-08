@@ -10,6 +10,7 @@ import searchData from './reducer/searchData.js';
 import searchSort from './reducer/searchSort.js';
 import currentBook from './reducer/currentBook.js';
 import cart from './reducer/cart.js';
+import myLibrary from './reducer/myLibrary.js';
 
 let store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ let store = configureStore({
     searchData,
     searchSort,
     currentBook,
-    cart
+    cart,
+    myLibrary
   }
 });
 
