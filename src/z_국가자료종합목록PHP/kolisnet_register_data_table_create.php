@@ -17,6 +17,7 @@
             bookLanguage    VARCHAR(30)   NOT NULL   COMMENT '언어',
             bookStore       VARCHAR(10)   NOT NULL   COMMENT '보관',
             bookLibrary     VARCHAR(250)  NOT NULL   COMMENT '소장도서관',
+            bookOtherLibrary VARCHAR(20)  NOT NULL   COMMENT '기타도서관소장여부',
             bookRegisterDate    TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY(bookCopyright)
     )ENGINE=MyISAM DEFAULT CHARSET=utf8mb4";

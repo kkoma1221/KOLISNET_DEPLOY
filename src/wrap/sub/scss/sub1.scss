@@ -706,7 +706,32 @@
                             }
                         }
                     }
-                    &#productView {
+                    &#productView, &#cartProductView {
+                        .sub-title {
+                            width: 100%;
+                            display: flex;
+                            align-items: baseline;
+                            margin: 20px 0;
+                            h3 {
+                                font-size: 24px;
+                                font-weight: 600;
+                                color: #006c95;
+                            }
+                            h4 {
+                                margin: 0 0 0 10px;
+                                font-size: 13px;
+                                color: #666;
+                                &::before{
+                                    content: '';
+                                    display: inline-block;
+                                    width: 1px;
+                                    height: 10px;
+                                    margin-right: 5px;
+                                    background: #999;
+                                }
+                            }
+
+                        }
                         .result-view {
                             width: 100%;
                             .detail-info {

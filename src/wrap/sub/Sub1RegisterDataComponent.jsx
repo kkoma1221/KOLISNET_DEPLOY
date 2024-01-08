@@ -1,8 +1,12 @@
 import React from 'react';
 import './scss/registerData.scss'
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { confirmModal } from '../../reducer/confirmModal';
 
 export default function Sub1RegisterDataComponent(){
+
+    const dispatch = useDispatch();
 
     const [state, setState] = React.useState({
         bookType : '',
@@ -19,8 +23,11 @@ export default function Sub1RegisterDataComponent(){
         bookPage: 0,
         bookLanguage: '',
         bookStore: '',
-        bookLibrary: [],
         bookLibrarySelf: ''
+    });
+
+    const [state2, setState2] = React.useState({
+        bookLibrary: []
     });
 
     const onChangeBookType=(e)=>{
@@ -122,16 +129,18 @@ export default function Sub1RegisterDataComponent(){
     }
 
     const onChangeBookLibrary=(e)=>{
-        let bookLibrary = [];
+        let bookLibrary = state2.bookLibrary;
         if(e.target.checked===true){
-            bookLibrary = [...state.bookLibrary, e.target.value]
+            bookLibrary = [...state2.bookLibrary, e.target.value]
+            console.log(bookLibrary);
         }
         else {
             bookLibrary = bookLibrary.filter((item)=>item !== e.target.value);
+            console.log(bookLibrary);
         }
         // console.log(bookLibrary);
-        setState({
-            ...state,
+        setState2({
+            ...state2,
             bookLibrary: bookLibrary
         });
     }
@@ -143,52 +152,67 @@ export default function Sub1RegisterDataComponent(){
         });
     }
 
+    const confirmModalMethod=(msg)=>{
+        const obj = {
+            isConfirmModal: true,
+            confirmMsg: msg,
+            회원가입완료: false
+        }
+        dispatch(confirmModal(obj));
+
+        const htmlEl = document.getElementsByTagName('html')[0];
+        htmlEl.classList.add('on');
+    }
+
     const onSubmitRegisterData=(e)=>{
         e.preventDefault();
         if(state.bookType===''){
-            alert('');
+            confirmModalMethod('자료유형을 선택하세요.');
         }
         else if(state.bookSubject===''){
-            alert('');
+            confirmModalMethod('주제를 선택하세요.');
         }
         else if(state.bookTitle===''){
-            alert('');
+            confirmModalMethod('책제목을 입력하세요.');
         }
         else if(state.bookWriter===''){
-            alert('');
+            confirmModalMethod('저자를 입력하세요.');
         }
         else if(state.bookPublisher===''){
-            alert('');
+            confirmModalMethod('발행기관을 입력하세요.');
         }
         else if(state.bookSortNum===''){
-            alert('');
+            confirmModalMethod('분류기호를 입력하세요.');
         }
         else if(state.bookCopyright===''){
-            alert('');
+            confirmModalMethod('저작번호를 입력하세요.');
         }
         else if(state.bookStandardNum===''){
-            alert('');
+            confirmModalMethod('표준번호를 입력하세요.');
         }
         else if(state.bookLanguage===''){
-            alert('');
+            confirmModalMethod('언어를 선택하세요.');
         }
         else if(state.bookStore===''){
-            alert('');
+            confirmModalMethod('보관방식을 선택하세요.');
         }
-        else if(state.bookLibrary.length<1){
-            alert('');
+        else if(state2.bookLibrary.length<1){
+            confirmModalMethod('소장 도서관을 선택하세요.');
         }
         else {
-            let bookLibrary = state.bookLibrary;
+            let bookLibrary = state2.bookLibrary;
+            let bookOtherLibrary = '';
             if(bookLibrary.includes('기타도서관')){
+                bookOtherLibrary = 'YES';
                 bookLibrary.filter((item)=>item!=='기타도서관');
                 if(state.bookLibrarySelf!==''){
-                    bookLibrary = [...state.bookLibrary, state.bookLibrarySelf];
+                    bookLibrary = [...state2.bookLibrary, state.bookLibrarySelf];
                     //console.log(bookLibrary);
                 }
             }
             else {
-                bookLibrary = state.bookLibrary;
+                bookLibrary = state2.bookLibrary;
+                bookOtherLibrary = 'NO';
             }
             let formData = new FormData();
             formData.append('bookType', state.bookType);
@@ -206,14 +230,20 @@ export default function Sub1RegisterDataComponent(){
             formData.append('bookLanguage', state.bookLanguage);
             formData.append('bookStore', state.bookStore);
             formData.append('bookLibrary', JSON.stringify(bookLibrary));
+            formData.append('bookOtherLibrary', bookOtherLibrary)
             axios({
-                url:'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_register_date_table_insert.php',
+                url:'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_register_data_table_insert.php',
                 method:'POST',
                 data: formData
             })
             .then((res)=>{
                 if(res.status===200){
-                    console.log(res.data);
+                    if(res.data === 1){
+                        confirmModalMethod('자료 등록에 성공하였습니다.');
+                    }
+                    else if(res.data===0){
+                        confirmModalMethod('자료 등록에 실패하였습니다. 확인 후 다시 시도하세요.')
+                    }
                 }
             })
             .catch((err)=>{
@@ -292,7 +322,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>주제</h4>
                                         </div>
                                         <div className="input-box">
-                                            <select name="bookSubject" id="bookSubject" onChange={onChangeBookSubject}>
+                                            <select name="bookSubject" id="bookSubject" value={state.bookSubject} onChange={onChangeBookSubject}>
                                                 <option value="기술과학">기술과학</option>
                                                 <option value="문학">문학</option>
                                                 <option value="사회과학">사회과학</option>
@@ -315,7 +345,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>책제목</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookTitle' id='bookTitle' onChange={onChangeBookTitle}/>
+                                            <input type="text" name='bookTitle' id='bookTitle' value={state.bookTitle} onChange={onChangeBookTitle}/>
                                         </div>
                                     </div>
                                 </li>
@@ -325,7 +355,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>저자</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookWriter' id='bookWriter' onChange={onChangeBookWriter}/>
+                                            <input type="text" name='bookWriter' id='bookWriter' value={state.bookWriter} onChange={onChangeBookWriter}/>
                                         </div>
                                     </div>
                                 </li>
@@ -335,7 +365,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>주기사항</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookjuki' id='bookjuki' onChange={onChangeBookJuki}/>
+                                            <input type="text" name='bookjuki' id='bookjuki' value={state.bookjuki} onChange={onChangeBookJuki}/>
                                         </div>
                                     </div>
                                 </li>
@@ -345,7 +375,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>발행년도</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookYear' id='bookYear' onChange={onChangeBookYear}/>
+                                            <input type="text" name='bookYear' id='bookYear' value={state.bookYear} onChange={onChangeBookYear}/>
                                         </div>
                                     </div>
                                 </li>
@@ -355,7 +385,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>발행기관</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookPublisher' id='bookPublisher' onChange={onChangeBookPublisher}/>
+                                            <input type="text" name='bookPublisher' id='bookPublisher' value={state.bookPublisher} onChange={onChangeBookPublisher}/>
                                         </div>
                                     </div>
                                 </li>
@@ -365,7 +395,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>분류기호</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookSortNum' id='bookSortNum' onChange={onChangeBookSortNum}/>
+                                            <input type="text" name='bookSortNum' id='bookSortNum' value={state.bookSortNum} onChange={onChangeBookSortNum}/>
                                         </div>
                                     </div>
                                 </li>
@@ -375,7 +405,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>저작번호</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookCopyright' id='bookCopyright' onChange={onChangeBookCopyright}/>
+                                            <input type="text" name='bookCopyright' id='bookCopyright' value={state.bookCopyright} onChange={onChangeBookCopyright}/>
                                         </div>
                                     </div>
                                 </li>
@@ -385,7 +415,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>표준번호</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookStandardNum' id='bookStandardNum' onChange={onChangeBookStandardNum}/>
+                                            <input type="text" name='bookStandardNum' id='bookStandardNum' value={state.bookStandardNum} onChange={onChangeBookStandardNum}/>
                                         </div>
                                     </div>
                                 </li>
@@ -395,7 +425,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>가격</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookPrice' id='bookPrice' onChange={onChangeBookPrice}/>
+                                            <input type="text" name='bookPrice' id='bookPrice' value={state.bookPrice} onChange={onChangeBookPrice}/>
                                         </div>
                                     </div>
                                 </li>
@@ -405,7 +435,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>페이지</h4>
                                         </div>
                                         <div className="input-box">
-                                            <input type="text" name='bookPage' id='bookPage' onChange={onChangeBookPage}/>
+                                            <input type="text" name='bookPage' id='bookPage' value={state.bookPage} onChange={onChangeBookPage}/>
                                         </div>
                                     </div>
                                 </li>
@@ -415,7 +445,7 @@ export default function Sub1RegisterDataComponent(){
                                             <h4>언어</h4>
                                         </div>
                                         <div className="input-box">
-                                            <select name="bookLanguage" id="bookLanguage" onChange={onChangeBookLanguage}>
+                                            <select name="bookLanguage" id="bookLanguage" value={state.bookLanguage} onChange={onChangeBookLanguage}>
                                                 <option value="Korean">Korean</option>
                                                 <option value="Japanese">Japanese</option>
                                                 <option value="Chinese">Chinese</option>
@@ -481,7 +511,7 @@ export default function Sub1RegisterDataComponent(){
                                                     name='bookLibrary'
                                                     id='bookLibraryNA'
                                                     value={'국회도서관소장자료'}
-                                                    checked={state.bookLibrary.includes('국회도서관소장자료')}
+                                                    checked={state2.bookLibrary.includes('국회도서관소장자료')}
                                                     onChange={onChangeBookLibrary}
                                             /> 국회도서관소장자료</label>
                                             <label htmlFor="bookLibraryUni">
@@ -490,7 +520,7 @@ export default function Sub1RegisterDataComponent(){
                                                     name='bookLibrary'
                                                     id='bookLibraryUni'
                                                     value={'대학도서관종합목록'}
-                                                    checked={state.bookLibrary.includes('대학도서관종합목록')}
+                                                    checked={state2.bookLibrary.includes('대학도서관종합목록')}
                                                     onChange={onChangeBookLibrary}
                                             /> 대학도서관종합목록</label>
                                             <label htmlFor="bookLibraryElse">
@@ -499,16 +529,17 @@ export default function Sub1RegisterDataComponent(){
                                                     name='bookLibrary'
                                                     id='bookLibraryElse'
                                                     value={'기타도서관'}
-                                                    checked={state.bookLibrary.includes('기타도서관')}
+                                                    checked={state2.bookLibrary.includes('기타도서관')}
                                                     onChange={onChangeBookLibrary}
                                             /> 기타도서관</label>
                                             {
-                                                state.bookLibrary.includes('기타도서관') && (
+                                                state2.bookLibrary.includes('기타도서관') && (
                                                     <input
                                                         type="text"
                                                         name='bookLibrary'
                                                         id='bookLibrarySelf'
                                                         className='bookLibrary'
+                                                        value={state.bookLibrarySelf}
                                                         onChange={onChangeBookLibrarySelf}
                                                     />
                                                 )

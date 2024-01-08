@@ -1,10 +1,15 @@
 import React from 'react';
 import Sub1LeftComponent from './Sub1LeftComponent';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { confirmModal } from '../../reducer/confirmModal';
+import { cartMethod } from '../../reducer/cart';
 
 export default function Sub1ProductViewComponent(){
 
     const location = useLocation();
+    const dispatch = useDispatch();
+    const selector = useSelector((state)=>state);
 
     const [state, setState] = React.useState({
         isSns: false
@@ -16,6 +21,59 @@ export default function Sub1ProductViewComponent(){
             ...state,
             isSns: !state.isSns
         });
+    }
+
+    const confirmModalMethod=(msg)=>{
+        const obj = {
+            isConfirmModal: true,
+            confirmMsg: msg,
+            회원가입완료: false
+        }
+        dispatch(confirmModal(obj));
+
+        const htmlEl = document.getElementsByTagName('html')[0];
+        htmlEl.classList.add('on');
+    }
+
+    const onClickGoCart=(e)=>{
+        e.preventDefault();
+        // navigate('/cart')
+        if(state.bookCheck.length < 1){
+            confirmModalMethod('자료를 선택하세요.');
+        }
+        else {
+            let currentBook = selector.currentBook.currentBook;
+            let cart = [];
+            if(selector.adminSignIn.관리자로그인정보===null){
+                if(localStorage.getItem('KOLISNET_CART')!==null){
+                    cart = JSON.parse(localStorage.getItem('KOLISNET_CART'));
+                }
+
+                let result = cart.map((item)=>item.bookCopyright === currentBook.bookCopyright);
+
+                if(result.includes(true)){
+                    confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
+                }
+                else{
+                    cart = [...cart, currentBook];
+                    confirmModalMethod('바구니에 저장되었습니다.'); 
+                }
+
+                localStorage.setItem('KOLISNET_CART', JSON.stringify(cart));
+                setState({
+                    ...state,
+                    currentBook: cart
+                });
+                dispatch(cartMethod(cart));
+
+                // console.log(currentBook.bookCopyright);
+                // console.log(result);
+                // console.log(cart);
+            }
+            else if(selector.adminSignIn.관리자로그인정보!==null){
+
+            }
+        }
     }
 
     return (
@@ -90,7 +148,7 @@ export default function Sub1ProductViewComponent(){
                                         <div className="button-box">
                                             <ul>
                                                 <li><a href="!#">책바다(상호대차) 신청</a></li>
-                                                <li><a href="!#"><img src="./images/sub/sub1/btn_cart.png" alt="" />바구니담기</a></li>
+                                                <li><a href="!#" onClick={onClickGoCart}><img src="./images/sub/sub1/btn_cart.png" alt="" />바구니담기</a></li>
                                                 <li><a href="!#"><img src="./images/sub/sub1/btn_myLib.png" alt="" />내서재담기</a></li>
                                             </ul>
                                         </div>

@@ -24,6 +24,7 @@
                 'bookLanguage' => $row['bookLanguage'],
                 'bookStore' => $row['bookStore'],
                 'bookLibrary' => $row['bookLibrary'],
+                'bookOtherLibrary' => $row['bookOtherLibrary'],
                 'bookRegisterDate' => $row['bookRegisterDate']
             ));
         }

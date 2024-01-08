@@ -7,7 +7,9 @@ import Sub1ProductDetailComponent from "./wrap/sub/Sub1ProductDetailComponent.js
 import Sub1ProductViewComponent from "./wrap/sub/Sub1ProductViewComponent.jsx";
 import Sub1RegisterDataComponent from "./wrap/sub/Sub1RegisterDataComponent.jsx";
 import Sub1CartComponent from "./wrap/sub/Sub1CartComponent.jsx";
+import Sub1CartProductViewComponent from "./wrap/sub/Sub1CartProductViewComponent.jsx";
 import Sub1MyLibraryComponent from "./wrap/sub/Sub1MyLibraryComponent";
+import Sub1MyLibraryProductViewComponent from "./wrap/sub/Sub1MyLibraryProductViewComponent";
 import Sub1DataListComponent from "./wrap/sub/Sub1DataListComponent.jsx";
 import Sub1DataListUpdateComponent from "./wrap/sub/Sub1DataListUpdateComponent.jsx";
 import SubAdminSignInComponent from "./wrap/sub/SubAdminSignInComponent";
@@ -26,6 +28,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { adminSignIn } from "./reducer/adminSignIn";
 import { bookData } from "./reducer/bookData";
 import { searchData } from "./reducer/searchData";
+import { cartMethod } from "./reducer/cart";
 import axios from "axios";
 
 
@@ -37,6 +40,10 @@ export default function WrapComponent(){
         if(localStorage.getItem('KOLISNET_ADMIN_SIGNIN')!==null) {                        
             const result = JSON.parse(localStorage.getItem('KOLISNET_ADMIN_SIGNIN'));
             dispatch(adminSignIn(result));
+        }
+        if(localStorage.getItem('KOLISNET_CART')!==''){
+            const result = JSON.parse(localStorage.getItem('KOLISNET_CART'));
+            dispatch(cartMethod(result));
         }
         axios({
             url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_register_data_table_select.php',
@@ -83,7 +90,9 @@ export default function WrapComponent(){
                             <Route path="/dataList" element={<Sub1DataListComponent/>} />
                             <Route path="/dataListUpdate" element={<Sub1DataListUpdateComponent/>} />
                             <Route path='/cart' element={<Sub1CartComponent/>} />
-                            <Route path='/myLibrary' element={<Sub1MyLibraryComponent />} />                    
+                            <Route path='/cartProductView' element={<Sub1CartProductViewComponent/>} />
+                            <Route path='/myLibrary' element={<Sub1MyLibraryComponent />} />
+                            <Route path='/myLibProductView' element={<Sub1MyLibraryProductViewComponent/>} />                  
                             <Route path="/subAdminSignIn" element={ <SubAdminSignInComponent /> }/>
                             <Route path="/subAdminSignUp" element={ <SubAdminSignUpComponent /> }/>
                             <Route path="/subAdminIdSearch" element={ <SubAdminIdSearchComponent /> }/>
