@@ -51,7 +51,7 @@ export default function SubAdminSignInComponent(){
         formData.append('adminPw', state.비밀번호);
 
         axios({
-            url: 'http://kkoma1221.dothome.co.kr/kolisnet/admin_signIn.php',
+            url: 'http://answotlr12.dothome.co.kr/kolisnet/admin_signIn.php',
             method: 'POST',
             data: formData
         })
