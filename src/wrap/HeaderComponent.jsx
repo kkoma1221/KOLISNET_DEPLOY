@@ -4,6 +4,9 @@ import './scss/header.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { searchData } from "../reducer/searchData";
 import { searchSort } from "../reducer/searchSort";
+import { SignUpModal } from "../reducer/isSignUpModal";
+import { SignInModal } from "../reducer/isSignInModal";
+import { logInInfo } from "../reducer/userSignIn";
 
 export default  function HeaderComponent(){
 
@@ -184,6 +187,25 @@ export default  function HeaderComponent(){
         }
     }
 
+    const onClickSignUp=(e)=>{
+        e.preventDefault();
+        dispatch(SignUpModal(true));
+        const htmlEl = document.getElementsByTagName('html')[0];
+        htmlEl.classList.add('on');
+    }
+    const onClickSignIn=(e)=>{
+        e.preventDefault();
+        dispatch(SignInModal(true));
+        const htmlEl = document.getElementsByTagName('html')[0];
+        htmlEl.classList.add('on');
+    }
+
+    const onClickUserLogOut=(e)=>{
+        e.preventDefault();
+        localStorage.removeItem('kolisnet_user_logIn');
+        dispatch(logInInfo(null));
+    }
+
     return(
         <>
             <header id="header">
@@ -203,10 +225,10 @@ export default  function HeaderComponent(){
                                 </div>
                                 <div className="right">
                                     {
-                                        selector.adminSignIn.관리자로그인정보 === null && (
+                                        selector.adminSignIn.관리자로그인정보 === null && selector.logInInfo.logInInfo === null && (
                                             <ul>
-                                                <li><a href="!#"><img src="./images/header/img_login.png" alt="" /><span>로그인</span></a></li>
-                                                <li><a href="!#"><img src="./images/header/img_join.png" alt="" /><span>회원가입</span></a></li>
+                                                <li><a href="!#" onClick={onClickSignIn}><img src="./images/header/img_login.png" alt="" /><span>로그인</span></a></li>
+                                                <li><a href="!#" onClick={onClickSignUp}><img src="./images/header/img_join.png" alt="" /><span>회원가입</span></a></li>
                                                 <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
                                             </ul>
                                         )
@@ -215,7 +237,20 @@ export default  function HeaderComponent(){
                                         selector.adminSignIn.관리자로그인정보 !== null && (
                                             <ul>
                                                 <li className="noA"><img src="./images/header/img_login.png" alt="" /><span>{`${selector.adminSignIn.관리자로그인정보.이름}  님`}</span></li>
-                                                <li><a href="!#"><span>로그아웃</span></a></li>
+                                                <li><a href="!#" ><span>로그아웃</span></a></li>
+                                                <li><a href="!#"><img src="./images/header/img_infochanege.png" alt="" /><span>회원정보수정</span></a></li>
+                                                <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
+                                                {/* <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li> */}
+                                                <li><Link to="/registerData"><img src="./images/header/icon_book.svg" alt="" /><span>자료등록</span></Link></li>
+                                                <li><Link to="/dataList"><img src="./images/header/img_mylibrary.png" alt="" /><span>자료목록</span></Link></li>
+                                            </ul>
+                                        )
+                                    }
+                                    {
+                                        selector.logInInfo.logInInfo !== null && (
+                                            <ul>
+                                                <li className="noA"><img src="./images/header/img_login.png" alt="" /><span>{`${selector.logInInfo.logInInfo.userName}  님`}</span></li>
+                                                <li><a href="!#" onClick={onClickUserLogOut}><span>로그아웃</span></a></li>
                                                 <li><a href="!#"><img src="./images/header/img_infochanege.png" alt="" /><span>회원정보수정</span></a></li>
                                                 <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
                                                 {/* <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li> */}
