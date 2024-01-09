@@ -3,12 +3,19 @@ import './scss/sub1.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { confirmModal } from '../../reducer/confirmModal';
+import { cartMethod } from '../../reducer/cart';
+import axios from 'axios';
 
 export default function Sub1CartComponent(){
 
     const selector = useSelector((state)=>state);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const [state, setState] = React.useState({
+        bookCheck: [],
+        bookCheckAll: 0
+    });
 
     // console.log(selector.cart.cart);
     // console.log(selector.cart.cart.length);
@@ -25,11 +32,124 @@ export default function Sub1CartComponent(){
         htmlEl.classList.add('on');
     }
 
+    React.useEffect(()=>{
+        if(selector.cart.cart!==null){
+            let bookCheckAll = []
+            selector.cart.cart.map((item)=>{
+                bookCheckAll = [...bookCheckAll, item.bookCopyright];
+            })
+            console.log(bookCheckAll);
+            setState({
+                ...state,
+                bookCheckAll: bookCheckAll
+            });
+        }
+    },[selector.cart]);
+
 
     const onClickViewCart=(e, item)=>{
         e.preventDefault();
         // console.log(item);
         navigate('/cartProductView', {state:item});
+    }
+
+    const onChangeBookCheck=(e)=>{
+        let bookCheck = state.bookCheck;
+        if(e.target.checked){
+            bookCheck = [...bookCheck, e.target.value];
+        }
+        else {
+            bookCheck = bookCheck.filter((item)=>item !== e.target.value);
+        }
+        setState({
+            ...state,
+            bookCheck: bookCheck
+        });
+        
+    }
+
+    const onChangeBookCheckAll=(e)=>{
+        let bookCheck = [];
+        if(e.target.checked){
+            bookCheck = state.bookCheckAll;
+        }
+        else{
+            bookCheck = [];
+        }
+        setState({
+            ...state,
+            bookCheck: bookCheck
+        });
+    }
+
+    const cartDBSelect=(아이디)=>{
+        let formData = new FormData();
+        formData.append('userId', 아이디);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                //console.log(res.data);
+                if(res.data!==null){
+                    localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
+                    dispatch(cartMethod(res.data));
+                    // console.log(res.data);
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    const cartDeleteMethod=(아이디, item)=>{
+        let formData = new FormData();
+        formData.append('userId', 아이디);
+        formData.append('bookCopyright', item);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_delete.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                // console.log(res.data);
+                // console.log(아이디);
+                // console.log(item);
+                if(res.data===1){
+                    confirmModalMethod('바구니에서 삭제되었습니다.');
+                    cartDBSelect(아이디);
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    const onClickDeleteBtn=(e)=>{
+        e.preventDefault();
+        let cart = selector.cart.cart;
+        if(state.bookCheck.length > 0){
+            let imsi = cart.filter((item)=>!state.bookCheck.includes(item.bookCopyright));
+            // console.log(imsi);
+            dispatch(cartMethod(imsi));
+            localStorage.setItem('KOLISNET_CART', JSON.stringify(imsi));
+
+            let res = state.bookCheck.filter((item)=>!state.bookCheck.includes(item));
+            setState({
+                ...state,
+                bookCheck: res,
+                bookCheckAll: res
+            });
+            state.bookCheck.map((item)=>{
+                // console.log(item);
+                cartDeleteMethod(selector.logInInfo.logInInfo.userId, item)
+            })
+        }
     }
     
     return (
@@ -51,9 +171,16 @@ export default function Sub1CartComponent(){
                                     <div className="cart-content">
                                         <div className="select-box">
                                             <label htmlFor="">
-                                                <input type="checkbox" />
+                                                <input
+                                                    type="checkbox" 
+                                                    name='bookCheckAll'
+                                                    id='bookCheckAll'
+                                                    value={'bookCheckAll'}
+                                                    checked={state.bookCheck.length===state.bookCheckAll.length}
+                                                    onChange={onChangeBookCheckAll}
+                                                />
                                             </label>
-                                            <button><img src="./images/sub/sub1/btn_cart.png" alt="" /><span>선택항목삭제</span></button>
+                                            <button onClick={onClickDeleteBtn}><img src="./images/sub/sub1/btn_cart.png" alt="" /><span>선택항목삭제</span></button>
                                         </div>
                                         <ul>
                                             {
@@ -64,11 +191,20 @@ export default function Sub1CartComponent(){
                                             {
                                                 selector.cart.cart !== null && (
                                                     selector.cart.cart.map((item, idx)=>{
-                                                        let library = JSON.parse(item.bookLibrary);
+                                                        // let library = JSON.parse(item.bookLibrary);
+                                                        // console.log(item.bookLibrary);
                                                         return (
                                                             <li key={idx}>
                                                                 <div className="row1">
-                                                                    <span className='chk-btn'><input type="checkbox" /></span>
+                                                                    <span className='chk-btn'>
+                                                                        <input 
+                                                                            type="checkbox"
+                                                                            name='bookCheck'
+                                                                            id={`bookCheck${idx}`}
+                                                                            value={item.bookCopyright}
+                                                                            checked={state.bookCheck.includes(item.bookCopyright)}
+                                                                            onChange={onChangeBookCheck}/>
+                                                                    </span>
                                                                     <span className='book-title' onClick={(e)=>onClickViewCart(e, item)}>
                                                                         <a href="!#">{`${item.bookTitle} / ${item.bookWriter}`}</a>
                                                                     </span>
@@ -77,7 +213,7 @@ export default function Sub1CartComponent(){
                                                                     <ul>
                                                                         <li><h5>{`발행사항 : ${item.bookPublisher} , ${item.bookYear}`}</h5></li>
                                                                         <li><h5>{`분류기호 : ${item.bookSortNum}`}</h5></li>
-                                                                        <li><h5>{`소장도서관 : ${library.length}개관`}</h5></li>
+                                                                        <li><h5>{`소장도서관 : ${'item.bookLibrary.length'}개관`}</h5></li>
                                                                     </ul>
                                                                 </div>
                                                             </li>

@@ -8,6 +8,7 @@ import { SignUpModal } from "../reducer/isSignUpModal";
 import { SignInModal } from "../reducer/isSignInModal";
 import { logInInfo } from "../reducer/userSignIn";
 import { adminSignIn } from "../reducer/adminSignIn";
+import { cartMethod } from "../reducer/cart";
 
 export default  function HeaderComponent(){
 
@@ -204,7 +205,11 @@ export default  function HeaderComponent(){
     const onClickUserLogOut=(e)=>{
         e.preventDefault();
         localStorage.removeItem('kolisnet_user_logIn');
+        localStorage.removeItem('SET_DB_CART');
+        localStorage.removeItem('KOLISNET_CART');
+        dispatch(cartMethod([]));
         dispatch(logInInfo(null));
+        navigate('/index');
     }
 
     const onClickAdminLogOut=(e)=>{
