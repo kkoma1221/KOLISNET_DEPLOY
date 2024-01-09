@@ -33,6 +33,8 @@ import { adminSignIn } from "./reducer/adminSignIn";
 import { bookData } from "./reducer/bookData";
 import { searchData } from "./reducer/searchData";
 import { cartMethod } from "./reducer/cart";
+import { myLibraryMethod } from "./reducer/myLibrary.js";
+import { currentBook } from "./reducer/currentBook.js";
 import axios from "axios";
 
 
@@ -42,6 +44,8 @@ export default function WrapComponent(){
 
     const [cart, setCart] = React.useState([]);
     const [ok, setOk] = React.useState(false);
+    const [myLibrary, setMyLibrary] = React.useState([]);
+    const [okay, setOkay] = React.useState(false);
 
     React.useEffect(()=>{
         if(localStorage.getItem('kolisnet_user_logIn')!==null){
@@ -52,10 +56,19 @@ export default function WrapComponent(){
             const result = JSON.parse(localStorage.getItem('KOLISNET_ADMIN_SIGNIN'));
             dispatch(adminSignIn(result));
         }
-        if(localStorage.getItem('KOLISNET_CART')!==''){
+        if(localStorage.getItem('KOLISNET_CART')!==null){
             const result = JSON.parse(localStorage.getItem('KOLISNET_CART'));
             dispatch(cartMethod(result));
         }
+        if(localStorage.getItem('KOLISNET_VIEW_BOOK')!==null){
+            const result = JSON.parse(localStorage.getItem('KOLISNET_VIEW_BOOK'));
+            dispatch(currentBook(result));
+        }
+        if(localStorage.getItem('KOLISNET_MYLIBRARY')!==null){
+            const result = JSON.parse(localStorage.getItem('KOLISNET_MYLIBRARY'));
+            dispatch(myLibraryMethod(result));
+        }
+
         axios({
             url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_register_data_table_select.php',
             method: 'GET'
@@ -84,20 +97,21 @@ export default function WrapComponent(){
         .catch((err)=>{
             console.log(err);
         })
+
+        return;
     },[]);
 
     React.useEffect(()=>{
-        if(selector.logInInfo.logInInfo!==null){
-            setCart(selector.cart.cart);
-            if(localStorage.getItem('SET_DB_CART')!==null){
-                setCart([]);
-                setOk(true);
-            }
-            else{
-                setCart(selector.cart.cart);
-            }
+        if(selector.logInInfo.logInInfo!==null){        
+            cartDBSelect(selector.logInInfo.logInInfo.userId);        
         }
-    },[selector.logInInfo]);
+    },[ok, selector.logInInfo]);
+
+    React.useEffect(()=>{
+        if(selector.logInInfo.logInInfo!==null){        
+            myLibraryDBSelect(selector.logInInfo.logInInfo.userId);        
+        }
+    },[okay, selector.logInInfo]);
 
     const cartDBSelect=(아이디)=>{
         let formData = new FormData();
@@ -109,7 +123,7 @@ export default function WrapComponent(){
         })
         .then((res)=>{
             if(res.status===200){
-                //console.log(res.data);
+                // console.log(res.data);
                 if(res.data!==null){
                     localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
                     dispatch(cartMethod(res.data));
@@ -167,6 +181,98 @@ export default function WrapComponent(){
         })
     }
 
+    const myLibraryDBSelect=(아이디)=>{
+        let formData = new FormData();
+        formData.append('userId', 아이디);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_myLibrary_table_select.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                // console.log(res.data);
+                if(res.data!==null){
+                    localStorage.setItem('KOLISNET_MYLIBRARY', JSON.stringify(res.data));
+                    dispatch(myLibraryMethod(res.data));
+                    // console.log(res.data);
+                }
+                else {
+                    localStorage.setItem('KOLISNET_MYLIBRARY', JSON.stringify([]));
+                    dispatch(myLibraryMethod([]));
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    const myLibraryDBSave=(item, idx)=>{
+        let formData = new FormData();
+        let bookLibrary = JSON.parse(item.bookLibrary);
+        formData.append('userId', selector.logInInfo.logInInfo.userId);
+        formData.append('bookType', item.bookType);
+        formData.append('bookSubject',item.bookSubject);
+        formData.append('bookTitle',item.bookTitle);
+        formData.append('bookWriter',item.bookWriter);
+        formData.append('bookjuki',item.bookjuki);
+        formData.append('bookYear',item.bookYear);
+        formData.append('bookPublisher',item.bookPublisher);
+        formData.append('bookSortNum',item.bookSortNum);
+        formData.append('bookCopyright',item.bookCopyright);
+        formData.append('bookStandardNum',item.bookStandardNum);
+        formData.append('bookPrice', Number(item.bookPrice));
+        formData.append('bookPage', Number(item.bookPage));
+        formData.append('bookLanguage',item.bookLanguage);
+        formData.append('bookStore',item.bookStore);
+        formData.append('bookLibrary',JSON.stringify(bookLibrary));
+        formData.append('bookOtherLibrary',item.bookOtherLibrary);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_myLibrary_table_insert.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                // console.log(res.data);
+                // console.log(item);
+                // console.log(item.bookLibrary);
+                // console.log(JSON.stringify(item.bookLibrary));
+            }
+        })
+        .then(()=>{
+            myLibraryDBSelect(selector.logInInfo.logInInfo.userId);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    React.useEffect(()=>{
+        // console.log(selector.cart.cart);
+        // console.log(selector.logInInfo.logInInfo);
+        if(selector.logInInfo.logInInfo!==null){
+            setCart(selector.cart.cart);
+            setMyLibrary(selector.myLibrary.cart);
+            if(localStorage.getItem('SET_DB_CART')!==null){
+                setCart([]);
+                setOk(true);
+            }
+            else{
+                setCart(selector.cart.cart);
+            }
+            if(localStorage.getItem('SET_DB_MYLIBRARY')!==null){
+                setMyLibrary([]);
+                setOkay(true);
+            }
+            else{
+                setMyLibrary(selector.myLibrary.cart);
+            }
+        }
+        return;
+    },[selector.logInInfo]);
+
     React.useEffect(()=>{
         if(selector.logInInfo.logInInfo!==null){
             if(localStorage.getItem('SET_DB_CART')===null){
@@ -178,7 +284,22 @@ export default function WrapComponent(){
                 }
             }
         }
+        return;
     },[cart]);
+
+    React.useEffect(()=>{
+        if(selector.logInInfo.logInInfo!==null){
+            if(localStorage.getItem('SET_DB_MYLIBRARY')===null){
+                if(myLibrary.length > 0){
+                    localStorage.setItem('SET_DB_MYLIBRARY', 'ok');
+                    myLibrary.map((item, idx)=>{
+                        myLibraryDBSave(item, idx);
+                    });
+                }
+            }
+        }
+        return;
+    },[myLibrary]);
 
     return (
         <div id="wrap">

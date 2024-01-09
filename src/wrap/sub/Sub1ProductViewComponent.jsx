@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { confirmModal } from '../../reducer/confirmModal';
 import { cartMethod } from '../../reducer/cart';
+import axios from 'axios';
 
 export default function Sub1ProductViewComponent(){
 
@@ -12,7 +13,8 @@ export default function Sub1ProductViewComponent(){
     const selector = useSelector((state)=>state);
 
     const [state, setState] = React.useState({
-        isSns: false
+        isSns: false,
+        currentBook: []
     });
 
     const onClickShowsns=(e)=>{
@@ -35,45 +37,108 @@ export default function Sub1ProductViewComponent(){
         htmlEl.classList.add('on');
     }
 
+    const cartDBSave=(item)=>{
+        let formData = new FormData();
+        let bookLibrary = JSON.parse(item.bookLibrary);
+        formData.append('userId', selector.logInInfo.logInInfo.userId);
+        formData.append('bookType', item.bookType);
+        formData.append('bookSubject',item.bookSubject);
+        formData.append('bookTitle',item.bookTitle);
+        formData.append('bookWriter',item.bookWriter);
+        formData.append('bookjuki',item.bookjuki);
+        formData.append('bookYear',item.bookYear);
+        formData.append('bookPublisher',item.bookPublisher);
+        formData.append('bookSortNum',item.bookSortNum);
+        formData.append('bookCopyright',item.bookCopyright);
+        formData.append('bookStandardNum',item.bookStandardNum);
+        formData.append('bookPrice', Number(item.bookPrice));
+        formData.append('bookPage', Number(item.bookPage));
+        formData.append('bookLanguage',item.bookLanguage);
+        formData.append('bookStore',item.bookStore);
+        formData.append('bookLibrary',JSON.stringify(bookLibrary));
+        formData.append('bookOtherLibrary',item.bookOtherLibrary);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                // console.log(res.data);
+                // console.log(item);
+                console.log(item.bookLibrary);
+                console.log(JSON.stringify(item.bookLibrary));
+                if(res.data!==null){
+                    confirmModalMethod('바구니에 저장되었습니다.');
+                    cartDBSelect();
+
+                }
+                else if(res.data===null){
+                    confirmModalMethod('바구니에 저장 실패하였습니다.');
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    const cartDBSelect=()=>{
+        let formData = new FormData();
+        formData.append('userId', selector.logInInfo.logInInfo.userId);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                //console.log(res.data);
+                if(res.data!==null){
+                    localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
+                    dispatch(cartMethod(res.data));
+                    // console.log(res.data);
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
     const onClickGoCart=(e)=>{
         e.preventDefault();
         // navigate('/cart')
-        if(state.bookCheck.length < 1){
-            confirmModalMethod('자료를 선택하세요.');
+        let currentBook = selector.currentBook.currentBook;
+        let cart = [];
+
+        if(localStorage.getItem('KOLISNET_CART')!==null){
+            cart = JSON.parse(localStorage.getItem('KOLISNET_CART'));
         }
-        else {
-            let currentBook = selector.currentBook.currentBook;
-            let cart = [];
-            if(selector.adminSignIn.관리자로그인정보===null){
-                if(localStorage.getItem('KOLISNET_CART')!==null){
-                    cart = JSON.parse(localStorage.getItem('KOLISNET_CART'));
-                }
 
-                let result = cart.map((item)=>item.bookCopyright === currentBook.bookCopyright);
+        let result = cart.map((item)=>item.bookCopyright === currentBook.bookCopyright);
 
-                if(result.includes(true)){
-                    confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
-                }
-                else{
-                    cart = [...cart, currentBook];
-                    confirmModalMethod('바구니에 저장되었습니다.'); 
-                }
-
-                localStorage.setItem('KOLISNET_CART', JSON.stringify(cart));
-                setState({
-                    ...state,
-                    currentBook: cart
-                });
-                dispatch(cartMethod(cart));
-
-                // console.log(currentBook.bookCopyright);
-                // console.log(result);
-                // console.log(cart);
-            }
-            else if(selector.adminSignIn.관리자로그인정보!==null){
-
+        if(result.includes(true)){
+            confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
+        }
+        else{
+            cart = [...cart, currentBook];
+            confirmModalMethod('바구니에 저장되었습니다.'); 
+            if(selector.logInInfo.logInInfo!==null){
+                cartDBSave(currentBook);
             }
         }
+
+        localStorage.setItem('KOLISNET_CART', JSON.stringify(cart));
+        setState({
+            ...state,
+            currentBook: cart
+        });
+        dispatch(cartMethod(cart));
+
+        // console.log(currentBook.bookCopyright);
+        // console.log(result);
+        // console.log(cart);
     }
 
     return (

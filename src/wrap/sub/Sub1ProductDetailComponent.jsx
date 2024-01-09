@@ -78,7 +78,7 @@ export default function Sub1ProductDetailComponent(){
     }
 
     // 데이터베이스 바구니 목록 저장 함수
-    const cartDBSave=(item)=>{
+    const cartDBSave=(item, db)=>{
         let formData = new FormData();
         let bookLibrary = JSON.parse(item.bookLibrary);
         formData.append('userId', selector.logInInfo.logInInfo.userId);
@@ -98,54 +98,103 @@ export default function Sub1ProductDetailComponent(){
         formData.append('bookStore',item.bookStore);
         formData.append('bookLibrary',JSON.stringify(bookLibrary));
         formData.append('bookOtherLibrary',item.bookOtherLibrary);
-        axios({
-            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
-            method: 'POST',
-            data: formData
-        })
-        .then((res)=>{
-            if(res.status===200){
-                // console.log(res.data);
-                // console.log(item);
-                console.log(item.bookLibrary);
-                console.log(JSON.stringify(item.bookLibrary));
-                if(res.data!==null){
-                    confirmModalMethod('바구니에 저장되었습니다.');
-                    cartDBSelect();
+        // console.log(db);
+        if(db==='cart'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    // console.log(res.data);
+                    // console.log(item);
+                    // console.log(item.bookLibrary);
+                    // console.log(JSON.stringify(item.bookLibrary));
+                    if(res.data!==null){
+                        confirmModalMethod('바구니에 저장되었습니다.');
+                        cartDBSelect(db);
+    
+                    }
+                    else if(res.data===null){
+                        confirmModalMethod('바구니에 저장 실패하였습니다.');
+                    }
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+        else if(db==='myLibrary'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_myLibrary_table_insert.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    if(res.data!==null){
+                        confirmModalMethod('내 서재에 저장되었습니다.');
+                        cartDBSelect(db);
+    
+                    }
+                    else if(res.data===null){
+                        confirmModalMethod('내 서재에 저장 실패하였습니다.');
+                    }
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
 
-                }
-                else if(res.data===null){
-                    confirmModalMethod('바구니에 저장 실패하였습니다.');
-                }
-            }
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
     }
 
     // 데이터베이스 바구니 정보 가져오기
-    const cartDBSelect=()=>{
+    const cartDBSelect=(db)=>{
         let formData = new FormData();
         formData.append('userId', selector.logInInfo.logInInfo.userId);
-        axios({
-            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
-            method: 'POST',
-            data: formData
-        })
-        .then((res)=>{
-            if(res.status===200){
-                //console.log(res.data);
-                if(res.data!==null){
-                    localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
-                    dispatch(cartMethod(res.data));
-                    // console.log(res.data);
+        if(db==='cart'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    //console.log(res.data);
+                    if(res.data!==null){
+                        localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
+                        dispatch(cartMethod(res.data));
+                        // console.log(res.data);
+                    }
                 }
-            }
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+        else if(db==='myLibrary'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_myLibrary_table_select.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    //console.log(res.data);
+                    if(res.data!==null){
+                        localStorage.setItem('KOLISNET_MYLIBRARY', JSON.stringify(res.data));
+                        dispatch(myLibraryMethod(res.data));
+                        // console.log(res.data);
+                    }
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+
     }
 
     const onClickGoCart=(e)=>{
@@ -170,7 +219,7 @@ export default function Sub1ProductDetailComponent(){
                 cart = [...cart, currentBook];
                 confirmModalMethod('바구니에 저장되었습니다.'); 
                 if(selector.logInInfo.logInInfo!==null){
-                    cartDBSave(currentBook);
+                    cartDBSave(currentBook, 'cart');
                 }
             }
 
@@ -180,7 +229,7 @@ export default function Sub1ProductDetailComponent(){
                 currentBook: cart
             });
             dispatch(cartMethod(cart));
-            console.log(JSON.stringify(cart));
+            //console.log(JSON.stringify(cart));
 
             // console.log(currentBook.bookCopyright);
             // console.log(result);
@@ -194,13 +243,13 @@ export default function Sub1ProductDetailComponent(){
             confirmModalMethod('자료를 선택하세요.');
         }
         else {
-            if(selector.adminSignIn.관리자로그인정보===null){
+            if(selector.logInInfo.logInInfo===null){
                 confirmModalMethod('로그인이 필요한 메뉴입니다.');
             }
-            else if(selector.adminSignIn.관리자로그인정보!==null){
+            else if(selector.logInInfo.logInInfo!==null){
                 let currentBook = selector.currentBook.currentBook;
                 let library = [];
-                navigate('/myLibrary');
+                // navigate('/myLibrary');
                 if(localStorage.getItem('KOLISNET_MYLIBRARY')!==null){
                     library = JSON.parse(localStorage.getItem('KOLISNET_MYLIBRARY'));
                 }
@@ -208,11 +257,12 @@ export default function Sub1ProductDetailComponent(){
                 let result = library.map((item)=>item.bookCopyright === currentBook.bookCopyright);
 
                 if(result.includes(true)){
-                    confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
+                    confirmModalMethod('이미 내 서재에 들어있는 자료입니다.');
                 }
                 else{
                     library = [...library, currentBook];
-                    confirmModalMethod('바구니에 저장되었습니다.'); 
+                    confirmModalMethod('내 서재에 저장되었습니다.'); 
+                    cartDBSave(currentBook, 'myLibrary');
                 }
 
                 localStorage.setItem('KOLISNET_MYLIBRARY', JSON.stringify(library));
@@ -220,10 +270,10 @@ export default function Sub1ProductDetailComponent(){
                     ...state,
                     currentBook: library
                 });
+                
                 dispatch(myLibraryMethod(library));
             }
         }
-
     }
 
     return (

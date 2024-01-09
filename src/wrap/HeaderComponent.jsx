@@ -9,6 +9,7 @@ import { SignInModal } from "../reducer/isSignInModal";
 import { logInInfo } from "../reducer/userSignIn";
 import { adminSignIn } from "../reducer/adminSignIn";
 import { cartMethod } from "../reducer/cart";
+import { myLibraryMethod } from "../reducer/myLibrary";
 
 export default  function HeaderComponent(){
 
@@ -207,7 +208,10 @@ export default  function HeaderComponent(){
         localStorage.removeItem('kolisnet_user_logIn');
         localStorage.removeItem('SET_DB_CART');
         localStorage.removeItem('KOLISNET_CART');
+        localStorage.removeItem('SET_DB_MYLIBRARY');
+        localStorage.removeItem('KOLISNET_MYLIBRARY');
         dispatch(cartMethod([]));
+        dispatch(myLibraryMethod([]));
         dispatch(logInInfo(null));
         navigate('/index');
     }
