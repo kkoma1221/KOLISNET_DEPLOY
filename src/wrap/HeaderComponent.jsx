@@ -3,6 +3,7 @@ import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import './scss/header.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { searchData } from "../reducer/searchData";
+import { searchWord } from "../reducer/searchData";
 import { searchSort } from "../reducer/searchSort";
 import { SignUpModal } from "../reducer/isSignUpModal";
 import { SignInModal } from "../reducer/isSignInModal";
@@ -81,7 +82,6 @@ export default  function HeaderComponent(){
         localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(res));
     }
 
-
     const onSubmitSearch=(e)=>{
         e.preventDefault();
         if(state.keyword===''){
@@ -91,13 +91,10 @@ export default  function HeaderComponent(){
             alert('자료유형을 선택해 주시기 바랍니다.')
         }
         else{
+            dispatch(searchWord(state.keyword));
             if(state.searchSelect==='title'){
                 let bookData = selector.bookData.bookData;
                 let result = bookData.filter((item)=>item.bookTitle.includes(state.keyword));
-                const obj = {
-                    searchData: result,
-                    searchWord: state.keyword
-                }
                 // console.log(result);
                 if(!state.searchSort.includes('일반도서')){
                     searchFilter('일반도서', result);
@@ -115,7 +112,7 @@ export default  function HeaderComponent(){
                     searchFilter('멀티미디어/비도서', result);
                 }
                 else {
-                    dispatch(searchData(obj));
+                    dispatch(searchData(result));
                     localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(result));
                 }
                 dispatch(searchSort(state.searchSort));
@@ -127,10 +124,6 @@ export default  function HeaderComponent(){
                 let bookData = selector.bookData.bookData;
                 let result = bookData.filter((item)=>item.bookWriter.includes(state.keyword));
                 // console.log(result);
-                const obj = {
-                    searchData: result,
-                    searchWord: state.keyword
-                }
                 if(!state.searchSort.includes('일반도서')){
                     searchFilter('일반도서', result);
                 }
@@ -147,7 +140,7 @@ export default  function HeaderComponent(){
                     searchFilter('멀티미디어/비도서', result);
                 }
                 else {
-                    dispatch(searchData(obj));
+                    dispatch(searchData(result));
                     localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(result));
                 }
                 dispatch(searchSort(state.searchSort));
@@ -179,7 +172,7 @@ export default  function HeaderComponent(){
                     searchFilter('멀티미디어/비도서', result);
                 }
                 else {
-                    dispatch(searchData(obj));
+                    dispatch(searchData(result));
                     localStorage.setItem('KOLISNET_SEARCH_DATA', JSON.stringify(result));
                 }
                 dispatch(searchSort(state.searchSort));
