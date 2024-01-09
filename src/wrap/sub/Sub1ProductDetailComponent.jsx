@@ -80,23 +80,24 @@ export default function Sub1ProductDetailComponent(){
     // 데이터베이스 바구니 목록 저장 함수
     const cartDBSave=(item)=>{
         let formData = new FormData();
+        let bookLibrary = JSON.parse(item.bookLibrary);
         formData.append('userId', selector.logInInfo.logInInfo.userId);
-        formData.append('cartBookType', item.bookType);
-        formData.append('cartBookSubject',item.bookSubject);
-        formData.append('cartBookTitle',item.bookTitle);
-        formData.append('cartBookWriter',item.bookWriter);
-        formData.append('cartBookjuki',item.bookjuki);
-        formData.append('cartBookYear',item.bookYear);
-        formData.append('cartBookPublisher',item.bookPublisher);
-        formData.append('cartBookSortNum',item.bookSortNum);
-        formData.append('cartBookCopyright',item.bookCopyright);
-        formData.append('cartBookStandardNum',item.bookStandardNum);
-        formData.append('cartBookPrice', Number(item.bookPrice));
-        formData.append('cartBookPage', Number(item.bookPage));
-        formData.append('cartBookLanguage',item.bookLanguage);
-        formData.append('cartBookStore',item.bookStore);
-        formData.append('cartBookLibrary',JSON.stringify(item.bookLibrary));
-        formData.append('cartBookOtherLibrary',item.bookOtherLibrary);
+        formData.append('bookType', item.bookType);
+        formData.append('bookSubject',item.bookSubject);
+        formData.append('bookTitle',item.bookTitle);
+        formData.append('bookWriter',item.bookWriter);
+        formData.append('bookjuki',item.bookjuki);
+        formData.append('bookYear',item.bookYear);
+        formData.append('bookPublisher',item.bookPublisher);
+        formData.append('bookSortNum',item.bookSortNum);
+        formData.append('bookCopyright',item.bookCopyright);
+        formData.append('bookStandardNum',item.bookStandardNum);
+        formData.append('bookPrice', Number(item.bookPrice));
+        formData.append('bookPage', Number(item.bookPage));
+        formData.append('bookLanguage',item.bookLanguage);
+        formData.append('bookStore',item.bookStore);
+        formData.append('bookLibrary',JSON.stringify(bookLibrary));
+        formData.append('bookOtherLibrary',item.bookOtherLibrary);
         axios({
             url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
             method: 'POST',
@@ -106,9 +107,12 @@ export default function Sub1ProductDetailComponent(){
             if(res.status===200){
                 // console.log(res.data);
                 // console.log(item);
+                console.log(item.bookLibrary);
+                console.log(JSON.stringify(item.bookLibrary));
                 if(res.data!==null){
                     confirmModalMethod('바구니에 저장되었습니다.');
                     cartDBSelect();
+
                 }
                 else if(res.data===null){
                     confirmModalMethod('바구니에 저장 실패하였습니다.');
@@ -135,6 +139,7 @@ export default function Sub1ProductDetailComponent(){
                 if(res.data!==null){
                     localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
                     dispatch(cartMethod(res.data));
+                    // console.log(res.data);
                 }
             }
         })
@@ -175,6 +180,7 @@ export default function Sub1ProductDetailComponent(){
                 currentBook: cart
             });
             dispatch(cartMethod(cart));
+            console.log(JSON.stringify(cart));
 
             // console.log(currentBook.bookCopyright);
             // console.log(result);

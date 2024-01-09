@@ -40,7 +40,14 @@ export default function WrapComponent(){
     const selector = useSelector((state)=>state);
     const dispatch = useDispatch();
 
+    const [cart, setCart] = React.useState([]);
+    const [ok, setOk] = React.useState(false);
+
     React.useEffect(()=>{
+        if(localStorage.getItem('kolisnet_user_logIn')!==null){
+            let res = JSON.parse(localStorage.getItem('kolisnet_user_logIn'));
+            dispatch(logInInfo(res));
+        }
         if(localStorage.getItem('KOLISNET_ADMIN_SIGNIN')!==null) {                        
             const result = JSON.parse(localStorage.getItem('KOLISNET_ADMIN_SIGNIN'));
             dispatch(adminSignIn(result));
@@ -80,10 +87,98 @@ export default function WrapComponent(){
     },[]);
 
     React.useEffect(()=>{
-        let res = JSON.parse(localStorage.getItem('kolisnet_user_logIn'));
-        dispatch(logInInfo(res));
-    },[])
+        if(selector.logInInfo.logInInfo!==null){
+            setCart(selector.cart.cart);
+            if(localStorage.getItem('SET_DB_CART')!==null){
+                setCart([]);
+                setOk(true);
+            }
+            else{
+                setCart(selector.cart.cart);
+            }
+        }
+    },[selector.logInInfo]);
 
+    const cartDBSelect=(아이디)=>{
+        let formData = new FormData();
+        formData.append('userId', 아이디);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                //console.log(res.data);
+                if(res.data!==null){
+                    localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
+                    dispatch(cartMethod(res.data));
+                    // console.log(res.data);
+                }
+                else {
+                    localStorage.setItem('KOLISNET_CART', JSON.stringify([]));
+                    dispatch(cartMethod([]));
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    const cartDBSave=(item, idx)=>{
+        let formData = new FormData();
+        let bookLibrary = JSON.parse(item.bookLibrary);
+        formData.append('userId', selector.logInInfo.logInInfo.userId);
+        formData.append('bookType', item.bookType);
+        formData.append('bookSubject',item.bookSubject);
+        formData.append('bookTitle',item.bookTitle);
+        formData.append('bookWriter',item.bookWriter);
+        formData.append('bookjuki',item.bookjuki);
+        formData.append('bookYear',item.bookYear);
+        formData.append('bookPublisher',item.bookPublisher);
+        formData.append('bookSortNum',item.bookSortNum);
+        formData.append('bookCopyright',item.bookCopyright);
+        formData.append('bookStandardNum',item.bookStandardNum);
+        formData.append('bookPrice', Number(item.bookPrice));
+        formData.append('bookPage', Number(item.bookPage));
+        formData.append('bookLanguage',item.bookLanguage);
+        formData.append('bookStore',item.bookStore);
+        formData.append('bookLibrary',JSON.stringify(bookLibrary));
+        formData.append('bookOtherLibrary',item.bookOtherLibrary);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                // console.log(res.data);
+                // console.log(item);
+                // console.log(item.bookLibrary);
+                // console.log(JSON.stringify(item.bookLibrary));
+            }
+        })
+        .then(()=>{
+            cartDBSelect(selector.logInInfo.logInInfo.userId);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    React.useEffect(()=>{
+        if(selector.logInInfo.logInInfo!==null){
+            if(localStorage.getItem('SET_DB_CART')===null){
+                if(cart.length > 0){
+                    localStorage.setItem('SET_DB_CART', 'ok');
+                    cart.map((item, idx)=>{
+                        cartDBSave(item, idx);
+                    });
+                }
+            }
+        }
+    },[cart]);
 
     return (
         <div id="wrap">
