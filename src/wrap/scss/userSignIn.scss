@@ -1,0 +1,266 @@
+#userSignIn{
+    z-index: 12;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    padding: 150px 350px 100px 450px;
+    overflow: scroll;
+    .window-bar{
+        max-width: 1025px;
+        width: 100%;
+        height: 30px;
+        background: #5792bc;
+        text-align: end;
+        .close-btn{
+            width: 30px;
+            height: 100%;
+            background: #ff0000;
+            color: #f8f8f8;
+            border: 0;
+            font-weight: 700;
+        }
+    }
+    #container1{
+        width: 100%;
+        height: 580px;
+        max-width: 1025px;
+        background: #fff;
+        overflow: scroll;
+        .headre{
+            width: 100%;
+            height: 94px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ccc;
+            .logo{
+                display: block;
+                width: 250px;
+                height: 100%;
+                background: url('../../../public/images/sub/signup/layout.png') left top no-repeat;
+                span{
+
+                }
+            }
+        }
+        .main1{
+            width: 100%;
+            padding: 20px;
+            .section1{
+                margin-top: 30px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                h2{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: #222;
+                }
+            }
+            .section2{
+                width: 100%;
+                padding: 20px;
+                margin-top: 20px;
+                border: 1px solid #ccc;
+                border-top: 1px solid #222;
+                .textbox{
+                    width: 100%;
+                    h2{
+                        font-size: 18px;
+                        font-weight: 500;
+                        color: #222;
+                    }
+                    h3{
+                        margin-top: 10px;
+                        font-size: 17px;
+                        font-weight: 300;
+                        em{
+                            vertical-align: top;
+                            color: #5792bc;
+                            font-weight: 400;
+                        }
+                    }
+                }
+                .button-box{
+                    margin-top: 20px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    button{
+                        position: relative;
+                        width: 175px;
+                        padding: 60px 20px 20px 20px;
+                        background: rgb(86, 146, 188);
+                        border: 0;
+                        color: #fff;
+                        font-size: 15px;
+                        cursor: pointer;
+                        &.btn1{
+                            margin-right: 10px;
+                            &::before{
+                                content: '';
+                                position: absolute;
+                                top: 20px;
+                                left: 75px;
+                                width: 31px;
+                                height: 31px;
+                                display: block;
+                                background: url('../../../public/images/sub/signup/sign_up_icon01.png') center top no-repeat;
+                            }
+                        }
+                        &.btn2{
+                            margin-right: 10px;
+                            letter-spacing: -0.05rem;
+                            &::before{
+                                content: '';
+                                position: absolute;
+                                top: 20px;
+                                left: 75px;
+                                width: 31px;
+                                height: 31px;
+                                display: block;
+                                background: url('../../../public/images/sub/signup/sign_up_icon02.png') center top no-repeat;
+                            }
+                        }
+                        &.btn3{
+                            background-color: #426f8f;
+                            letter-spacing: -0.07rem;
+                            &::before{
+                                content: '';
+                                position: absolute;
+                                top: 20px;
+                                left: 75px;
+                                width: 31px;
+                                height: 31px;
+                                display: block;
+                                background: url('../../../public/images/sub/signup/sign_up_icon03.png') center top no-repeat;
+                            }
+                        }
+                    }
+                }
+            }
+            .section3{
+                width: 100%;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-top: 0;
+                .textbox{
+                    width: 100%;
+                    h2{
+                        font-size: 18px;
+                        font-weight: 500;
+                        color: #222;
+                    }
+                    h3{
+                        margin-top: 10px;
+                        font-size: 17px;
+                        font-weight: 300;
+                        em{
+                            vertical-align: top;
+                            color: #5792bc;
+                            font-weight: 400;
+                        }
+                    }
+                }
+                .button-box{
+                    margin-top: 20px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    button{
+                        position: relative;
+                        width: 210px;
+                        padding: 30px 30px 30px 60px;
+                        background: #426f8f;
+                        border: 0;
+                        color: #fff;
+                        font-size: 15px;
+                        cursor: pointer;
+                        &.btn1{
+                            margin-right: 10px;
+                            letter-spacing: -0.05rem;
+                            &::before{
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                margin-top: -13px;
+                                left: 20px;
+                                width: 31px;
+                                height: 31px;
+                                display: block;
+                                background: url('../../../public/images/sub/signup/sign_up_icon04.png') center top no-repeat;
+                            }
+                        }
+                    }
+                }
+            }
+            .section4{
+                width: 100%;
+                .text-box{
+                    margin-top: 30px;
+                    width: 100%;
+                    h2{
+                        font-size: 16px;
+                        font-weight: 300;
+                        em{
+                            font-weight: 700;
+                            vertical-align: top;
+                        }
+                    }
+                    h3{
+                        margin-top: 10px;
+                        font-size: 16px;
+                        font-weight: 300;
+                        em{
+                            font-weight: 700;
+                            vertical-align: top;
+                        }
+                    }
+                }
+            }
+        }
+        .foodter{
+            margin-top: 50px;
+            width: 100%;
+            height: 150px;
+            border-top: 1px solid #ccc;
+            background: #f8f8f8;
+            .content{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                .left{
+                    width: 25%;
+                    height: 100%;
+                    padding: 40px 20px 40px 20px;
+                    .logo{
+                        display: block;
+                        width: 250px;
+                        height: 60px;
+                        background: url('../../../public/images/sub/signup/layout.png') 0 0 no-repeat;
+                        span{
+                        }
+                    }
+                }
+                .rignt{
+                    width: 75%;
+                    height: 100%;
+                    padding: 60px 30px 40px 30px;
+                    h2{
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+                    h3{
+                        margin-top: 10px;
+                        font-size: 14px;
+                        font-weight: 300;
+                    }
+                }
+            }
+        }
+    }
+}
