@@ -14,7 +14,7 @@ export default function Sub1CartComponent(){
 
     const [state, setState] = React.useState({
         bookCheck: [],
-        bookCheckAll: 0
+        bookCheckAll: []
     });
 
     // console.log(selector.cart.cart);
@@ -38,7 +38,7 @@ export default function Sub1CartComponent(){
             selector.cart.cart.map((item)=>{
                 bookCheckAll = [...bookCheckAll, item.bookCopyright];
             })
-            console.log(bookCheckAll);
+            // console.log(bookCheckAll);
             setState({
                 ...state,
                 bookCheckAll: bookCheckAll
