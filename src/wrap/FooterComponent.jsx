@@ -15,6 +15,10 @@ export default  function FooterComponent(){
         localStorage.removeItem('KOLISNET_ADMIN_SIGNIN')
         window.location.pathname = '/index'
     }
+    const onClickUserList=(e)=>{
+        e.preventDefault();
+        window.location.pathname = '/subAdminUserList'
+    }
 
     return(
         <footer id="footer">
@@ -53,8 +57,12 @@ export default  function FooterComponent(){
                                 <li onClick={onClickAdminLogIn}>관리자 로그인</li>
                                 }
                                 {   selector.adminSignIn.관리자로그인정보!==null &&
-                                    <li onClick={onClickAdminLogOut}>관리자 로그아웃</li>
+                                <>
+                                    <li className="admin" onClick={onClickAdminLogOut}>관리자 로그아웃</li>
+                                    <li className="admin" onClick={onClickUserList}>가입회원 리스트</li>
+                                </>
                                 }
+
                             </ul>
                         </div>
                     </div>
