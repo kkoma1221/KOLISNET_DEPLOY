@@ -2,25 +2,25 @@
     include_once('./kolisnet_header.php');
 
     $userId = 'guon599';
-    $bookType = '일반도서';
-    $bookSubject = '사회과학';
-    $bookTitle = '인디아더존스';
-    $bookWriter = '이사랑';
-    $bookjuki = '등저: 조영태, 장대익, 민 영, 이수정';
-    $bookYear = '2023';
-    $bookPublisher = '염운옥';
-    $bookSortNum = '334';
-    $bookCopyright = 'UW20231875178';
-    $bookStandardNum = 'ISBN 979-11-88635-86-3 03100';
-    $bookPrice = 19500;
-    $bookPage = 300;
-    $bookLanguage = 'Korean';
-    $bookStore = '오프라인';
-    $bookLibrary = '대학도서관소장자료';
-    $bookOtherLibrary = 'YES';
+    $cartBookType = '일반도서';
+    $cartBookSubject = '사회과학';
+    $cartBookTitle = '인디아더존스';
+    $cartBookWriter = '이사랑';
+    $cartBookjuki = '등저: 조영태, 장대익, 민 영, 이수정';
+    $cartBookYear = '2023';
+    $cartBookPublisher = '염운옥';
+    $cartBookSortNum = '334';
+    $cartBookCopyright = 'UW20231875178';
+    $cartBookStandardNum = 'ISBN 979-11-88635-86-3 03100';
+    $cartBookPrice = 19500;
+    $cartBookPage = 300;
+    $cartBookLanguage = 'Korean';
+    $cartBookStore = '오프라인';
+    $cartBookLibrary = '대학도서관소장자료';
+    $cartBookOtherLibrary = 'YES';
 
-    $SQL = "INSERT INTO kolisnet_cart_table (userId,bookType,bookSubject,bookTitle,bookWriter,bookjuki,bookYear,bookPublisher,bookSortNum,bookCopyright,bookStandardNum,bookPrice,bookPage,bookLanguage,bookStore,bookLibrary,bookOtherLibrary)
-            VALUES ('$userId','$bookType','$bookSubject','$bookTitle','$bookWriter','$bookjuki','$bookYear','$bookPublisher','$bookSortNum','$bookCopyright','$bookStandardNum','$bookPrice','$bookPage','$bookLanguage','$bookStore','$bookLibrary','$bookOtherLibrary')";
+    $SQL = "INSERT INTO kolisnet_cart_table (userId,cartBookType,cartBookSubject,cartBookTitle,cartBookWriter,cartBookjuki,cartBookYear,cartBookPublisher,cartBookSortNum,cartBookCopyright,cartBookStandardNum,cartBookPrice,cartBookPage,cartBookLanguage,cartBookStore,cartBookLibrary,cartBookOtherLibrary)
+            VALUES ('$userId','$cartBookType','$cartBookSubject','$cartBookTitle','$cartBookWriter','$cartBookjuki','$cartBookYear','$cartBookPublisher','$cartBookSortNum','$cartBookCopyright','$cartBookStandardNum','$cartBookPrice','$cartBookPage','$cartBookLanguage','$cartBookStore','$cartBookLibrary','$cartBookOtherLibrary')";
     
     $res = mysqli_query($conn, $SQL);
 

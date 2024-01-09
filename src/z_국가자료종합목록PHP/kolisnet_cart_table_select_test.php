@@ -5,7 +5,7 @@
 
     $SQL = "SELECT * FROM kolisnet_cart_table
             WHERE userId='$userId'
-            ORDER BY bookRegisterDate DESC";
+            ORDER BY cartBookRegisterDate DESC";
 
     $res = mysqli_query($conn, $SQL);
 
@@ -13,23 +13,23 @@
         $arr = array();
         while($row = mysqli_fetch_array($res)){
             array_push($arr, array(
-                'bookType' => $row['bookType'],
-                'bookSubject' => $row['bookSubject'],
-                'bookTitle' => htmlspecialchars($row['bookTitle'], ENT_QUOTES),
-                'bookWriter' => $row['bookWriter'],
-                'bookjuki' => htmlspecialchars($row['bookjuki'], ENT_QUOTES),
-                'bookYear' => $row['bookYear'],
-                'bookPublisher' => $row['bookPublisher'],
-                'bookSortNum' => $row['bookSortNum'],
-                'bookCopyright' => $row['bookCopyright'],
-                'bookStandardNum' => htmlspecialchars($row['bookStandardNum'], ENT_QUOTES),
-                'bookPrice' => $row['bookPrice'],
-                'bookPage' => $row['bookPage'],
-                'bookLanguage' => $row['bookLanguage'],
-                'bookStore' => $row['bookStore'],
-                'bookLibrary' => $row['bookLibrary'],
-                'bookOtherLibrary' => $row['bookOtherLibrary'],
-                'bookRegisterDate' => $row['bookRegisterDate']
+                'cartBookType' => $row['cartBookType'],
+                'cartBookSubject' => $row['cartBookSubject'],
+                'cartBookTitle' => htmlspecialchars($row['cartBookTitle'], ENT_QUOTES),
+                'cartBookWriter' => $row['cartBookWriter'],
+                'cartBookjuki' => htmlspecialchars($row['cartBookjuki'], ENT_QUOTES),
+                'cartBookYear' => $row['cartBookYear'],
+                'cartBookPublisher' => $row['cartBookPublisher'],
+                'cartBookSortNum' => $row['cartBookSortNum'],
+                'cartBookCopyright' => $row['cartBookCopyright'],
+                'cartBookStandardNum' => htmlspecialchars($row['cartBookStandardNum'], ENT_QUOTES),
+                'cartBookPrice' => $row['cartBookPrice'],
+                'cartBookPage' => $row['cartBookPage'],
+                'cartBookLanguage' => $row['cartBookLanguage'],
+                'cartBookStore' => $row['cartBookStore'],
+                'cartBookLibrary' => $row['cartBookLibrary'],
+                'cartBookOtherLibrary' => $row['cartBookOtherLibrary'],
+                'cartBookRegisterDate' => $row['cartBookRegisterDate']
             ));
         }
     }

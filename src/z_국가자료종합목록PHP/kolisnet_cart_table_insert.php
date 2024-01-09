@@ -2,25 +2,25 @@
     include_once('./kolisnet_header.php');
 
     $userId = $_POST['userId'];
-    $bookType = $_POST['bookType'];
-    $bookSubject = $_POST['bookSubject'];
-    $bookTitle = htmlspecialchars($_POST['bookTitle'], ENT_QUOTES);
-    $bookWriter = $_POST['bookWriter'];
-    $bookjuki = htmlspecialchars($_POST['bookjuki'], ENT_QUOTES);
-    $bookYear = $_POST['bookYear'];
-    $bookPublisher = $_POST['bookPublisher'];
-    $bookSortNum = $_POST['bookSortNum'];
-    $bookCopyright = $_POST['bookCopyright'];
-    $bookStandardNum = htmlspecialchars($_POST['bookStandardNum'], ENT_QUOTES);
-    $bookPrice = $_POST['bookPrice'];
-    $bookPage = $_POST['bookPage'];
-    $bookLanguage = $_POST['bookLanguage'];
-    $bookStore = $_POST['bookStore'];
-    $bookLibrary = $_POST['bookLibrary'];
-    $bookOtherLibrary = $_POST['bookOtherLibrary'];
+    $cartBookType = $_POST['cartBookType'];
+    $cartBookSubject = $_POST['cartBookSubject'];
+    $cartBookTitle = htmlspecialchars($_POST['cartBookTitle'], ENT_QUOTES);
+    $cartBookWriter = $_POST['cartBookWriter'];
+    $cartBookjuki = htmlspecialchars($_POST['cartBookjuki'], ENT_QUOTES);
+    $cartBookYear = $_POST['cartBookYear'];
+    $cartBookPublisher = $_POST['cartBookPublisher'];
+    $cartBookSortNum = $_POST['cartBookSortNum'];
+    $cartBookCopyright = $_POST['cartBookCopyright'];
+    $cartBookStandardNum = htmlspecialchars($_POST['cartBookStandardNum'], ENT_QUOTES);
+    $cartBookPrice = $_POST['cartBookPrice'];
+    $cartBookPage = $_POST['cartBookPage'];
+    $cartBookLanguage = $_POST['cartBookLanguage'];
+    $cartBookStore = $_POST['cartBookStore'];
+    $cartBookLibrary = $_POST['cartBookLibrary'];
+    $cartBookOtherLibrary = $_POST['cartBookOtherLibrary'];
 
-    $SQL = "INSERT INTO kolisnet_cart_table (userId,bookType,bookSubject,bookTitle,bookWriter,bookjuki,bookYear,bookPublisher,bookSortNum,bookCopyright,bookStandardNum,bookPrice,bookPage,bookLanguage,bookStore,bookLibrary,bookOtherLibrary)
-            VALUES ('$userId','$bookType','$bookSubject','$bookTitle','$bookWriter','$bookjuki','$bookYear','$bookPublisher','$bookSortNum','$bookCopyright','$bookStandardNum','$bookPrice','$bookPage','$bookLanguage','$bookStore','$bookLibrary','$bookOtherLibrary')";
+    $SQL = "INSERT INTO kolisnet_cart_table (userId,cartBookType,cartBookSubject,cartBookTitle,cartBookWriter,cartBookjuki,cartBookYear,cartBookPublisher,cartBookSortNum,cartBookCopyright,cartBookStandardNum,cartBookPrice,cartBookPage,cartBookLanguage,cartBookStore,cartBookLibrary,cartBookOtherLibrary)
+            VALUES ('$userId','$cartBookType','$cartBookSubject','$cartBookTitle','$cartBookWriter','$cartBookjuki','$cartBookYear','$cartBookPublisher','$cartBookSortNum','$cartBookCopyright','$cartBookStandardNum','$cartBookPrice','$cartBookPage','$cartBookLanguage','$cartBookStore','$cartBookLibrary','$cartBookOtherLibrary')";
     
     $res = mysqli_query($conn, $SQL);
 
