@@ -7,6 +7,8 @@ export default function Sub1MyLibraryComponent(){
     const selector = useSelector((state)=>state);
     const navigate = useNavigate();
 
+    console.log(selector.myLibrary.myLibrary);
+
     const onClickViewmyLibrary=(e, item)=>{
         e.preventDefault();
         navigate('/myLibProductView', {state:item});
@@ -34,7 +36,7 @@ export default function Sub1MyLibraryComponent(){
                             </div>
                             <div className="cart">
                                 <div className="cart-length">
-                                    <p>총 게시물 <strong> {selector.myLibrary.myLibrary.length} </strong> 건</p>
+                                    <p>총 게시물 <strong> {selector.myLibrary.myLibrary!==null?selector.myLibrary.myLibrary.length:'0'} </strong> 건</p>
                                 </div>
                                 <form action="">
                                     <div className="cart-content">
@@ -46,7 +48,7 @@ export default function Sub1MyLibraryComponent(){
                                         </div>
                                         <ul>
                                             {
-                                                selector.myLibrary.myLibrary.length === 0 && (
+                                                selector.myLibrary.myLibrary === '' && (
                                                     <li className='empty'><p>등록된 자료가 없습니다.</p></li>
                                                 )
                                             }

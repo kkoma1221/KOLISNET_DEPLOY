@@ -113,8 +113,8 @@ export default function WrapComponent(){
                             <Route path="/noticeView" element={ <SubNoticeViewComponent /> }/>
                             <Route path="/subUpdateNotice" element={ <SubNoticeUpdateComponent /> }/>
                         </Route>
+                        <FooterComponent/>
                     </Routes>
-                    <FooterComponent/>
                 {
                     selector.confirmModal.isConfirmModal && <ConfirmModalComponent />
                 }

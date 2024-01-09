@@ -73,13 +73,13 @@
                 }
                 .list-data {
                     width: 100%;
-                    ul {
+                    > ul {
                         width: 100%;
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
                         background: #fff;
-                        li {
+                        > li {
                             &.col4, &.col5 {
                                 text-align: left;
                                 padding: 10px;
@@ -100,6 +100,96 @@
                                 cursor: pointer;
                                 img {
                                     width: 18px;
+                                }
+                            }
+                        }
+                    }
+                }
+                .pagination {
+                    width: 100%;
+                    margin: 50px 0 0 0;
+                    display: flex;
+                    align-items: center;
+                    .search-box {
+                        width: 40%;
+                        select {
+                            height: 30px;
+                            margin: 0 10px 0 0;
+                            padding: 0 2px;
+                            outline: 1px solid transparent;
+                            outline-offset: -1px;
+                            transition: all 0.3s ease-in-out;
+                            border: 1px solid #aaa;
+                            &:focus {
+                                outline-color: #062C5D;
+                            }
+                            option {}
+                        }
+                        input[type='text']{
+                            width: 150px;
+                            height: 30px;
+                            border: 1px solid #aaa;
+                            outline: 1px solid transparent;
+                            outline-offset: -1px;
+                            transition: all 0.3s ease-in-out;
+                            padding: 0 4px;
+                            margin: 0 10px 0 0;
+                            &:focus {
+                                outline-color: #062C5D;
+                            }
+                        }
+                        button {
+                            width: 50px;
+                            height: 30px;
+                            border: 1px solid #aaa;
+                            background: #fff;
+                            cursor: pointer;
+                            &:hover {
+                                background: #f7f7f7;
+                                border-color: #062C5D;
+                            }
+                        }
+                    }
+                    .pagination-box {
+                        width: 60%;
+                        > ul {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            .page-btn {
+                                height: 30px;
+                                margin: 0 3px;
+                                padding: 0;
+                                border-right: 1px solid #aaa;
+                                border-top: 1px solid #aaa;
+                                border-color: #aaa;
+                                background: #fff;
+                                cursor: pointer;
+                                button {
+                                    width: 100%;
+                                    height: 100%;
+                                    border: 0;
+                                    background: transparent;
+                                    transform: translateY(-1px);
+                                    padding: 1px 8px;
+                                    cursor: pointer;
+                                    img {
+                                        width: auto;
+                                    }
+                                    span {
+                                        display: inline-block;
+                                        transform: translateY(1px);
+                                    }
+                                }
+                                &:hover {
+                                    background: #f7f7f7;
+                                    border-color: #062C5D;
+                                    color: #062C5D;
+                                }
+                                &.on {
+                                    background: #f7f7f7;
+                                    border-color: #062C5D;
+                                    color: #062C5D;
                                 }
                             }
                         }

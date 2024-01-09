@@ -7,6 +7,7 @@ import { searchSort } from "../reducer/searchSort";
 import { SignUpModal } from "../reducer/isSignUpModal";
 import { SignInModal } from "../reducer/isSignInModal";
 import { logInInfo } from "../reducer/userSignIn";
+import { adminSignIn } from "../reducer/adminSignIn";
 
 export default  function HeaderComponent(){
 
@@ -206,6 +207,12 @@ export default  function HeaderComponent(){
         dispatch(logInInfo(null));
     }
 
+    const onClickAdminLogOut=(e)=>{
+        e.preventDefault();
+        localStorage.removeItem('KOLISNET_ADMIN_SIGNIN');
+        dispatch(adminSignIn(null));
+    }
+
     return(
         <>
             <header id="header">
@@ -237,10 +244,8 @@ export default  function HeaderComponent(){
                                         selector.adminSignIn.관리자로그인정보 !== null && (
                                             <ul>
                                                 <li className="noA"><img src="./images/header/img_login.png" alt="" /><span>{`${selector.adminSignIn.관리자로그인정보.이름}  님`}</span></li>
-                                                <li><a href="!#" ><span>로그아웃</span></a></li>
-                                                <li><a href="!#"><img src="./images/header/img_infochanege.png" alt="" /><span>회원정보수정</span></a></li>
-                                                <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
-                                                {/* <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li> */}
+                                                <li><a href="!#" onClick={onClickAdminLogOut}><span>로그아웃</span></a></li>
+                                                <li><Link to='/subAdminUserList'><img src="./images/header/img_infochanege.png" alt="" /><span>회원목록</span></Link></li>
                                                 <li><Link to="/registerData"><img src="./images/header/icon_book.svg" alt="" /><span>자료등록</span></Link></li>
                                                 <li><Link to="/dataList"><img src="./images/header/img_mylibrary.png" alt="" /><span>자료목록</span></Link></li>
                                             </ul>
@@ -253,9 +258,7 @@ export default  function HeaderComponent(){
                                                 <li><a href="!#" onClick={onClickUserLogOut}><span>로그아웃</span></a></li>
                                                 <li><a href="!#"><img src="./images/header/img_infochanege.png" alt="" /><span>회원정보수정</span></a></li>
                                                 <li><Link to="/cart"><img src="./images/header/img_basket.png" alt="" /><span>바구니</span></Link></li>
-                                                {/* <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li> */}
-                                                <li><Link to="/registerData"><img src="./images/header/icon_book.svg" alt="" /><span>자료등록</span></Link></li>
-                                                <li><Link to="/dataList"><img src="./images/header/img_mylibrary.png" alt="" /><span>자료목록</span></Link></li>
+                                                <li><Link to="/myLibrary"><img src="./images/header/img_mylibrary.png" alt="" /><span>내서재</span></Link></li>
                                             </ul>
                                         )
                                     }

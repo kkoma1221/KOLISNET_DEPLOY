@@ -45,7 +45,7 @@ export default function Sub1CartComponent(){
                             </div>
                             <div className="cart">
                                 <div className="cart-length">
-                                    <p>총 게시물 <strong> {selector.cart.cart.length} </strong> 건</p>
+                                    <p>총 게시물 <strong> {selector.cart.cart!==null?selector.cart.cart.length:'0'} </strong> 건</p>
                                 </div>
                                 <form action="">
                                     <div className="cart-content">
@@ -57,12 +57,12 @@ export default function Sub1CartComponent(){
                                         </div>
                                         <ul>
                                             {
-                                                selector.cart.cart.length === 0 && (
+                                                selector.cart.cart === null && (
                                                     <li className='empty'><p>등록된 자료가 없습니다.</p></li>
                                                 )
                                             }
                                             {
-                                                selector.cart.cart !== '' && (
+                                                selector.cart.cart !== null && (
                                                     selector.cart.cart.map((item, idx)=>{
                                                         let library = JSON.parse(item.bookLibrary);
                                                         return (

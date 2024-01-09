@@ -1,23 +1,26 @@
 import React from "react";
 import './scss/footer.scss'
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 export default  function FooterComponent(){
-    const selector = useSelector((state)=>state)
+
+    const selector = useSelector((state)=>state);
+    const navigate = useNavigate();
 
     const onClickAdminLogIn=(e)=>{
         e.preventDefault();
-        window.location.pathname = '/subAdminSignIn'
+        navigate('/subAdminSignIn');
     }
     const onClickAdminLogOut=(e)=>{
         e.preventDefault();
-        localStorage.removeItem('KOLISNET_ADMIN_SIGNIN')
-        window.location.pathname = '/index'
+        localStorage.removeItem('KOLISNET_ADMIN_SIGNIN');
+        navigate('/index');
     }
     const onClickUserList=(e)=>{
         e.preventDefault();
-        window.location.pathname = '/subAdminUserList'
+        navigate('/subAdminUserList');
     }
 
     return(
@@ -26,12 +29,12 @@ export default  function FooterComponent(){
                 <div className="content">
                     <div className="logo-box">
                         <ul>
-                            <li><a href=""><img src="./images/footer/logo1.png" alt="" /></a></li>
-                            <li><a href=""><img src="./images/footer/logo2.png" alt="" /></a></li>
-                            <li><a href=""><img src="./images/footer/logo3.png" alt="" /></a></li>
-                            <li><a href=""><img src="./images/footer/logo4.png" alt="" /></a></li>
-                            <li><a href=""><img src="./images/footer/logo5.png" alt="" /></a></li>
-                            <li><a href=""><img src="./images/footer/logo6.png" alt="" /></a></li>
+                            <li><a href="!#"><img src="./images/footer/logo1.png" alt="" /></a></li>
+                            <li><a href="!#"><img src="./images/footer/logo2.png" alt="" /></a></li>
+                            <li><a href="!#"><img src="./images/footer/logo3.png" alt="" /></a></li>
+                            <li><a href="!#"><img src="./images/footer/logo4.png" alt="" /></a></li>
+                            <li><a href="!#"><img src="./images/footer/logo5.png" alt="" /></a></li>
+                            <li><a href="!#"><img src="./images/footer/logo6.png" alt="" /></a></li>
                         </ul>
                     </div>
                     <div className="bottom-content">

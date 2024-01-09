@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { confirmModal } from '../../reducer/confirmModal';
 import { cartMethod } from '../../reducer/cart';
 import { myLibraryMethod } from '../../reducer/myLibrary';
+import axios from 'axios';
 
 export default function Sub1ProductDetailComponent(){
 
@@ -14,10 +15,13 @@ export default function Sub1ProductDetailComponent(){
     const selector = useSelector((state)=>state);
     const dispatch = useDispatch();
 
+    //console.log(selector.logInInfo.logInInfo);
+
     const [state, setState] = React.useState({
         bookCheck: [],
         bookCheckAll:'',
-        currentBook: []
+        currentBook: [],
+        locationData: []
     });
 
     const onClickProductView=(e, item)=>{
@@ -25,6 +29,13 @@ export default function Sub1ProductDetailComponent(){
         navigate('/productView', {state:item});
         // console.log(item);
     }
+
+    React.useEffect(()=>{
+        setState({
+            ...state,
+            locationData: location.state.bookCopyright
+        });
+    },[location.state]);
 
     const onChangeBookCheck=(e)=>{
         let bookCheck = state.bookCheck;
@@ -41,7 +52,17 @@ export default function Sub1ProductDetailComponent(){
     }
 
     const onChangeBookCheckAll=(e)=>{
-
+        let bookCheck = state.bookCheck;
+        if(e.target.checked===true){
+            bookCheck = state.locationData;
+        }
+        else {
+            bookCheck = [];
+        }
+        setState({
+            ...state,
+            bookCheck: bookCheck
+        });
     }
 
     const confirmModalMethod=(msg)=>{
@@ -56,6 +77,71 @@ export default function Sub1ProductDetailComponent(){
         htmlEl.classList.add('on');
     }
 
+    // 데이터베이스 바구니 목록 저장 함수
+    const cartDBSave=(item)=>{
+        let formData = new FormData();
+        formData.append('userId', selector.logInInfo.logInInfo.userId);
+        formData.append('cartBookType', item.bookType);
+        formData.append('cartBookSubject',item.bookSubject);
+        formData.append('cartBookTitle',item.bookTitle);
+        formData.append('cartBookWriter',item.bookWriter);
+        formData.append('cartBookjuki',item.bookjuki);
+        formData.append('cartBookYear',item.bookYear);
+        formData.append('cartBookPublisher',item.bookPublisher);
+        formData.append('cartBookSortNum',item.bookSortNum);
+        formData.append('cartBookCopyright',item.bookCopyright);
+        formData.append('cartBookStandardNum',item.bookStandardNum);
+        formData.append('cartBookPrice', Number(item.bookPrice));
+        formData.append('cartBookPage', Number(item.bookPage));
+        formData.append('cartBookLanguage',item.bookLanguage);
+        formData.append('cartBookStore',item.bookStore);
+        formData.append('cartBookLibrary',JSON.stringify(item.bookLibrary));
+        formData.append('cartBookOtherLibrary',item.bookOtherLibrary);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                // console.log(res.data);
+                // console.log(item);
+                if(res.data!==null){
+                    confirmModalMethod('바구니에 저장되었습니다.');
+                    cartDBSelect();
+                }
+                else if(res.data===null){
+                    confirmModalMethod('바구니에 저장 실패하였습니다.');
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    // 데이터베이스 바구니 정보 가져오기
+    const cartDBSelect=()=>{
+        let formData = new FormData();
+        formData.append('userId', selector.logInInfo.logInInfo.userId);
+        axios({
+            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
+            method: 'POST',
+            data: formData
+        })
+        .then((res)=>{
+            if(res.status===200){
+                //console.log(res.data);
+                if(res.data!==null){
+                    localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
+                    dispatch(cartMethod(res.data));
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
 
     const onClickGoCart=(e)=>{
         e.preventDefault();
@@ -66,35 +152,33 @@ export default function Sub1ProductDetailComponent(){
         else {
             let currentBook = selector.currentBook.currentBook;
             let cart = [];
-            if(selector.adminSignIn.관리자로그인정보===null){
-                if(localStorage.getItem('KOLISNET_CART')!==null){
-                    cart = JSON.parse(localStorage.getItem('KOLISNET_CART'));
-                }
-
-                let result = cart.map((item)=>item.bookCopyright === currentBook.bookCopyright);
-
-                if(result.includes(true)){
-                    confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
-                }
-                else{
-                    cart = [...cart, currentBook];
-                    confirmModalMethod('바구니에 저장되었습니다.'); 
-                }
-
-                localStorage.setItem('KOLISNET_CART', JSON.stringify(cart));
-                setState({
-                    ...state,
-                    currentBook: cart
-                });
-                dispatch(cartMethod(cart));
-
-                // console.log(currentBook.bookCopyright);
-                // console.log(result);
-                // console.log(cart);
+            if(localStorage.getItem('KOLISNET_CART')!==null){
+                cart = JSON.parse(localStorage.getItem('KOLISNET_CART'));
             }
-            else if(selector.adminSignIn.관리자로그인정보!==null){
 
+            let result = cart.map((item)=>item.bookCopyright === currentBook.bookCopyright);
+
+            if(result.includes(true)){
+                confirmModalMethod('이미 바구니에 들어있는 자료입니다.');
             }
+            else{
+                cart = [...cart, currentBook];
+                confirmModalMethod('바구니에 저장되었습니다.'); 
+                if(selector.logInInfo.logInInfo!==null){
+                    cartDBSave(currentBook);
+                }
+            }
+
+            localStorage.setItem('KOLISNET_CART', JSON.stringify(cart));
+            setState({
+                ...state,
+                currentBook: cart
+            });
+            dispatch(cartMethod(cart));
+
+            // console.log(currentBook.bookCopyright);
+            // console.log(result);
+            // console.log(cart);
         }
     }
 
@@ -245,7 +329,7 @@ export default function Sub1ProductDetailComponent(){
                                                 name='bookCheckAll'
                                                 id='bookCheckAll'
                                                 value={'bookCheckAll'}
-                                                checked={state.bookCheckAll==='bookCheckAll'}
+                                                checked={state.bookCheck.length>1}
                                                 onChange={onChangeBookCheckAll}
                                             />
                                         </span>
