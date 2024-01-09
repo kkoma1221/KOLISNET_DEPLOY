@@ -177,65 +177,10 @@ export default function PostcodeComponent () {
                                 </div>
                             </li>
                             <li>
-                                <div className="gap row3">
-                                   <p>
-                                        ※ 저장된 배송지는 최대 7일 간 임시 저장 후 자동 삭제됩니다.<br/>
-                                        로그인 할 경우, 회원님의 배송지 목록에 추가됩니다.
-                                   </p>
-                                </div>
-                            </li>
-                            <li>
                                 <div className="gap row4">
                                     <button onClick={onClickSave}>저장</button>
                                 </div>
                             </li>
-                            <li>
-                                <div className="gap row5">
-                                    <img src="./images/sub/sub5/icon_info.svg" alt="" />
-                                    <span>샛별배송 지역 중 배송불가 장소 안내</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="gap row6">                                    
-                                    <span>관공서 / 학교 / 병원 / 시장 / 공단지역 / 산간지역 / 백화점 등</span>
-                                    <button>
-                                        <em>자세히 보기</em>
-                                        <img src="./images/sub/sub5/icon_arrow_down_11x10.svg" alt="" />
-                                    </button>
-                                    {
-                                        state.isMoreview && (
-                                            <div className="more-view">
-                                                <ul class="css-lu7l5g ep04gzj0">
-                                                    <li>가락동농수산물도매시장</li>
-                                                    <li>가락동농수산물시장</li>
-                                                    <li>가천대학교</li>
-                                                    <li>고려대학교안암캠퍼스</li>
-                                                    <li>고매동 일부(일부지역만 배송가능)</li>
-                                                    <li>국립중앙박물관</li>
-                                                    <li>국민대학교</li>
-                                                    <li>덕성여자대학교</li>
-                                                    <li>덕양구 신원동 일부(일부지역만 배송가능)</li>
-                                                    <li>도내동 일부(원흥지구만 배송가능)</li>
-                                                    <li>동덕여자대학교</li>
-                                                    <li>반월특수지구</li>
-                                                    <li>서경대학교</li>
-                                                    <li>서울사이버대학교</li>
-                                                    <li>서울시립대학교</li>
-                                                    <li>서울여자대학교</li>
-                                                    <li>성균관대학교</li>
-                                                    <li>성신여자대학교</li>
-                                                    <li>세종대학교</li>
-                                                    <li>연세대학교</li>
-                                                    <li>이화여자대학교</li>
-                                                    <li>한국외국어대학교</li>
-                                                    <li>홍익대학교</li>
-                                                </ul>                                    
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            </li>
-
                         </ul>
                     </div>
                 </div>

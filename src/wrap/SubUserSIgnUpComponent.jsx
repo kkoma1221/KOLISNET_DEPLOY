@@ -37,6 +37,7 @@ export default function SubUserSIgnUpComponent(){
         userBirth:'',
         userGender:'',
         userSMS:'',
+        아이디중복확인:false
     });
 
     const confirmModalMethod=(msg)=>{
@@ -149,6 +150,40 @@ export default function SubUserSIgnUpComponent(){
 
     const onClickIdCheck=(e)=>{
         e.preventDefault();
+        if(state.userId===''){
+            confirmModalMethod('아이디를 입려하주세요');
+        }
+        else{
+            const fromData = new FormData();
+            fromData.append('userId', state.userId);
+
+            axios({
+                url:'http://guon299.co.kr/kolisnet/user_ID_Check.php',
+                method:'POST',
+                data:fromData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    if(res.data===1){
+                        setState({
+                            ...state,
+                            아이디중복확인:false
+                        })
+                        confirmModalMethod('중복된 아이디 입니다.');
+                    }
+                    else{
+                        setState({
+                            ...state,
+                            아이디중복확인:true
+                        })
+                        confirmModalMethod('중복되지 않은 아이디 입니다.');
+                    }
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
     }
 
     const onChangeUserPw1=(e)=>{
@@ -274,40 +309,51 @@ export default function SubUserSIgnUpComponent(){
 
     const onSubmitUserSingUp=(e)=>{
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('userType',state.userType)
-        formData.append('userId',state.userId)
-        formData.append('userPw',state.userPw1)
-        formData.append('userName',state.userName)
-        formData.append('userBirth',state.userBirth)
-        formData.append('userAddress',`${state.userAddress1}${state.userAddress2}${state.userAddress3}`)
-        formData.append('userGender',state.userGender)
-        formData.append('userHp',`${state.userHp1}-${state.userHp2}-${state.userHp3}`)
-        formData.append('userEmail',`${state.userEmail1}@${state.isEmail===true?state.userEmail2:state.userEmail3}`)
-        formData.append('SMSSelect',state.SMSSelect)
-
-        axios({
-            url:'http://guon299.co.kr/kolisnet/user_insert_table.php',
-            method:'POST',
-            data:formData
-        })
-        .then((res)=>{
-            if(res.status===200){
-                if(res.data===1){
-                    setState({
-                        ...state,
-                        isSignUp4:false,
-                        isSignUp5:true
-                    })
+        if(state.userId===''){
+            confirmModalMethod('아이디를 입력 하세요');
+        }
+        if(state.userPw1===''){
+            confirmModalMethod('비밀번호를 입력 하세요');
+        }
+        if(state.userPw1!==state.userPw2){
+            confirmModalMethod('입력한 비밀번호를 적어주세요');
+        }
+        else{
+            const formData = new FormData();
+            formData.append('userType',state.userType)
+            formData.append('userId',state.userId)
+            formData.append('userPw',state.userPw1)
+            formData.append('userName',state.userName)
+            formData.append('userBirth',state.userBirth)
+            formData.append('userAddress',`${state.userAddress1}${state.userAddress2}${state.userAddress3}`)
+            formData.append('userGender',state.userGender)
+            formData.append('userHp',`${state.userHp1}-${state.userHp2}-${state.userHp3}`)
+            formData.append('userEmail',`${state.userEmail1}@${state.isEmail===true?state.userEmail2:state.userEmail3}`)
+            formData.append('SMSSelect',state.SMSSelect)
+    
+            axios({
+                url:'http://guon299.co.kr/kolisnet/user_insert_table.php',
+                method:'POST',
+                data:formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    if(res.data===1){
+                        setState({
+                            ...state,
+                            isSignUp4:false,
+                            isSignUp5:true
+                        })
+                    }
+                    else if(res.data==0){ 
+                        confirmModalMethod('확인하고 다시 시도해주세요');
+                    }
                 }
-                else if(res.data==0){ 
-                    confirmModalMethod('확인하고 다시 시도해주세요');
-                }
-            }
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
     }
 
     const onClickBtn1=(e)=>{
@@ -366,6 +412,13 @@ export default function SubUserSIgnUpComponent(){
         else{
             alert('이름과 생년월일을 입력 해주세요')
         }
+    }
+
+    const onClickFin=(e)=>{
+        e.preventDefault();
+        dispatch(SignUpModal(false));
+        const htmlEl = document.getElementsByTagName('html')[0];
+        htmlEl.classList.remove('on');
     }
 
     return (
@@ -952,7 +1005,7 @@ export default function SubUserSIgnUpComponent(){
                                                 <span>비밀번호</span>
                                             </div>
                                             <div className="right">
-                                                <input type="text" name='userPw1' id='userPw1' value={state.userPw1} onChange={onChangeUserPw1}/>
+                                                <input type="password" name='userPw1' id='userPw1' value={state.userPw1} onChange={onChangeUserPw1}/>
                                                 <p>*</p>
                                                 <span> 10~16자리 영문/숫자 또는 영문/숫자/특수문자[!@#$%^&*()]혼용</span>
                                             </div>
@@ -963,7 +1016,7 @@ export default function SubUserSIgnUpComponent(){
                                                 <span>비밀번호 확인</span>
                                             </div>
                                             <div className="right">
-                                                <input type="text" name='userPw2' id='userPw2' value={state.userPw2} onChange={onChangeUserPw2}/>
+                                                <input type="password" name='userPw2' id='userPw2' value={state.userPw2} onChange={onChangeUserPw2}/>
                                                 <p>*</p>
                                                 <span>비밀번호 동일 입력</span>
                                             </div>
@@ -1012,11 +1065,11 @@ export default function SubUserSIgnUpComponent(){
                                                     <input type="text" name='userHp3' id='userHp3' value={state.userHp3} onChange={onChangeHp3}/>
                                                 </div>
                                                 <div className="info-box">
-                                                    <span></span>
-                                                    <span></span>
+                                                    <span>* 국가상호대차서비스 선택시 휴대폰번호 입력 후 인증을 수행해야 합니다.</span>
+                                                    <span>* 인증번호는 카카오톡 알림톡으로 발송되며, 카카오톡이 설치되지 않은 휴대폰의 경우 일반 문자메세지(SMS)로 발송됩니다.</span>
                                                 </div>
                                                 <div className="button-box">
-                                                    <button className='hpingng'></button>
+                                                    <button className='hpingng'>인증번호 받기</button>
                                                 </div>
                                             </div>
                                         </li>
@@ -1077,8 +1130,6 @@ export default function SubUserSIgnUpComponent(){
                                     </ul>
                                 </div>
                                 <div className="section3">
-                                </div>
-                                <div className="section4">
                                     <button className='signUp-btn'>회원가입 신청</button>
                                 </div>
                             </form>
@@ -1088,7 +1139,13 @@ export default function SubUserSIgnUpComponent(){
                 {
                     state.isSignUp5 && (
                         <div className="main5">
-                            가입이 완료 되었습니다.
+                            <div className="row1">
+                                <span>{state.userName}님</span>
+                                <p>회원가입을 축하합니다.</p>
+                            </div>
+                            <div className="row2">
+                                <button onClick={onClickFin}>회원가입 완료하기</button>
+                            </div>
                         </div>
                     )  
                 }

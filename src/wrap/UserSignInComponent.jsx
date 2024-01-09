@@ -105,8 +105,8 @@ export default function UserSignInComponent(){
                             <div className="left">
                                 <div className="row1">
                                     <h2>로그인</h2>
-                                    <input type="radio" id='userType' name='userType'/>
-                                    <label htmlFor="userType" selector>통합회원</label>
+                                    <input type="radio" id='userType' name='userType' value={'통합회원'} select/>
+                                    <label htmlFor="userType" >통합회원</label>
                                 </div>
                                 <div className="row2">
                                     <input type="text" id='userId' name='userId' value={state.userId} onChange={onChangeId}/>
@@ -115,7 +115,7 @@ export default function UserSignInComponent(){
                                     <input type="password" id='userPw' name='userPw' value={state.userPw} onChange={onChangePw}/>
                                 </div>
                                 <div className="row4">
-                                    <input type="radio" id='idSave' name='idSave'/>
+                                    <input type="checkbox" id='idSave' name='idSave' value={'아이디 저장'}/>
                                     <label htmlFor="idSave">아이디 저장</label>
                                 </div>
                                 <div className="row5">
