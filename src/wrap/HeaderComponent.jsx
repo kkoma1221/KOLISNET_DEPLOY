@@ -11,6 +11,7 @@ import { logInInfo } from "../reducer/userSignIn";
 import { adminSignIn } from "../reducer/adminSignIn";
 import { cartMethod } from "../reducer/cart";
 import { myLibraryMethod } from "../reducer/myLibrary";
+import { confirmModal } from "../reducer/confirmModal";
 
 export default  function HeaderComponent(){
 
@@ -75,6 +76,20 @@ export default  function HeaderComponent(){
             searchSelect: e.target.value
         });
     }
+    
+    const confirmModalMethod=(msg, item)=>{
+        const obj = {
+            isConfirmModal: true,
+            confirmMsg: msg,
+            회원가입완료: false,
+            item: item
+        }
+        // console.log(item);
+        dispatch(confirmModal(obj));
+
+        const htmlEl = document.getElementsByTagName('html')[0];
+        htmlEl.classList.add('on');
+    }
 
     const searchFilter=(category, result)=>{
         let res = result.filter((item)=>item.bookType!==category);
@@ -85,10 +100,10 @@ export default  function HeaderComponent(){
     const onSubmitSearch=(e)=>{
         e.preventDefault();
         if(state.keyword===''){
-            alert('검색어를 입력하세요.');
+            confirmModalMethod('검색어를 입력하세요.');
         }
         else if(state.searchSelect.length < 1){
-            alert('자료유형을 선택해 주시기 바랍니다.')
+            confirmModalMethod('자료유형을 선택해 주시기 바랍니다.')
         }
         else{
             dispatch(searchWord(state.keyword));
