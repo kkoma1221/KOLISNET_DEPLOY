@@ -63,7 +63,7 @@
                             justify-content: space-between;
                             line-height: 22px;
                             border-bottom: 1px solid #ddd;
-                            &:last-child{
+                            &.admin{
                                 justify-content: end;
                                 border-bottom: 0;
                                 font-weight: 700;
