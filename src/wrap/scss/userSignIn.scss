@@ -44,181 +44,78 @@
                 }
             }
         }
-        .main1{
+        .main{
+            margin-top: 30px;
             width: 100%;
             padding: 20px;
-            .section1{
-                margin-top: 30px;
+            form{
                 width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                h2{
-                    font-size: 18px;
-                    font-weight: 500;
-                    color: #222;
-                }
-            }
-            .section2{
-                width: 100%;
-                padding: 20px;
-                margin-top: 20px;
-                border: 1px solid #ccc;
-                border-top: 1px solid #222;
-                .textbox{
+                .section1{
                     width: 100%;
-                    h2{
-                        font-size: 18px;
-                        font-weight: 500;
-                        color: #222;
-                    }
-                    h3{
-                        margin-top: 10px;
-                        font-size: 17px;
-                        font-weight: 300;
-                        em{
-                            vertical-align: top;
-                            color: #5792bc;
-                            font-weight: 400;
-                        }
-                    }
-                }
-                .button-box{
-                    margin-top: 20px;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    button{
-                        position: relative;
-                        width: 175px;
-                        padding: 60px 20px 20px 20px;
-                        background: rgb(86, 146, 188);
-                        border: 0;
-                        color: #fff;
-                        font-size: 15px;
-                        cursor: pointer;
-                        &.btn1{
-                            margin-right: 10px;
-                            &::before{
-                                content: '';
-                                position: absolute;
-                                top: 20px;
-                                left: 75px;
-                                width: 31px;
-                                height: 31px;
-                                display: block;
-                                background: url('../../../public/images/sub/signup/sign_up_icon01.png') center top no-repeat;
+                    text-align: center;
+                    .left{
+                        width: 100%;
+                        .row1{
+                            width: 100%;
+                            margin-bottom: 10px;
+                            h2{
+                                font-size: 20px;
+                                margin-bottom: 10px;
+                            }
+                            input{
+                                margin-right: 5px;
+                            }
+                            label{
+                                
                             }
                         }
-                        &.btn2{
-                            margin-right: 10px;
-                            letter-spacing: -0.05rem;
-                            &::before{
-                                content: '';
-                                position: absolute;
-                                top: 20px;
-                                left: 75px;
-                                width: 31px;
-                                height: 31px;
-                                display: block;
-                                background: url('../../../public/images/sub/signup/sign_up_icon02.png') center top no-repeat;
+                        .row2{
+                            width: 100%;
+                            margin-bottom: 10px;
+                            input{
+                                padding: 5px 10px;
                             }
                         }
-                        &.btn3{
-                            background-color: #426f8f;
-                            letter-spacing: -0.07rem;
-                            &::before{
-                                content: '';
-                                position: absolute;
-                                top: 20px;
-                                left: 75px;
-                                width: 31px;
-                                height: 31px;
-                                display: block;
-                                background: url('../../../public/images/sub/signup/sign_up_icon03.png') center top no-repeat;
+                        .row3{
+                            width: 100%;
+                            margin-bottom: 10px;
+                            input{
+                                padding: 5px 10px;
+                            }
+                        }
+                        .row4{
+                            width: 100%;
+                            margin-bottom: 10px;
+                            input{
+                                margin-right: 5px;
+                            }
+                            label{
+                                
+                            }
+                        }
+                        .row5{
+                            width: 100%;
+                            margin-bottom: 20px;
+                            .logIn{
+                                width: 140px;
+                                padding: 10px;
+                            }
+                        }
+                        .row6{
+                            width: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            a{
+                                margin-right: 10px;
+                            }
+                            p{
+                                margin-right: 10px;
                             }
                         }
                     }
-                }
-            }
-            .section3{
-                width: 100%;
-                padding: 20px;
-                border: 1px solid #ccc;
-                border-top: 0;
-                .textbox{
-                    width: 100%;
-                    h2{
-                        font-size: 18px;
-                        font-weight: 500;
-                        color: #222;
-                    }
-                    h3{
-                        margin-top: 10px;
-                        font-size: 17px;
-                        font-weight: 300;
-                        em{
-                            vertical-align: top;
-                            color: #5792bc;
-                            font-weight: 400;
-                        }
-                    }
-                }
-                .button-box{
-                    margin-top: 20px;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    button{
-                        position: relative;
-                        width: 210px;
-                        padding: 30px 30px 30px 60px;
-                        background: #426f8f;
-                        border: 0;
-                        color: #fff;
-                        font-size: 15px;
-                        cursor: pointer;
-                        &.btn1{
-                            margin-right: 10px;
-                            letter-spacing: -0.05rem;
-                            &::before{
-                                content: '';
-                                position: absolute;
-                                top: 50%;
-                                margin-top: -13px;
-                                left: 20px;
-                                width: 31px;
-                                height: 31px;
-                                display: block;
-                                background: url('../../../public/images/sub/signup/sign_up_icon04.png') center top no-repeat;
-                            }
-                        }
-                    }
-                }
-            }
-            .section4{
-                width: 100%;
-                .text-box{
-                    margin-top: 30px;
-                    width: 100%;
-                    h2{
-                        font-size: 16px;
-                        font-weight: 300;
-                        em{
-                            font-weight: 700;
-                            vertical-align: top;
-                        }
-                    }
-                    h3{
-                        margin-top: 10px;
-                        font-size: 16px;
-                        font-weight: 300;
-                        em{
-                            font-weight: 700;
-                            vertical-align: top;
-                        }
+                    .right{
+
                     }
                 }
             }

@@ -559,7 +559,6 @@
                     li{
                         width: 100%;
                         display: flex;
-                        
                         .left{
                             width: 20%;
                             display: flex;
@@ -577,15 +576,287 @@
                             width: 80%;
                             padding: 20px;
                             border: 1px solid #ccc;
-                            input{
-                                padding: 5px;
-                                margin-right: 10px;
+                        }
+                        &.signUpForm1{
+                            .right{
+                                input{
+                                    margin-right: 5px;
+                                }
+                                label{
+                                    margin-right: 10px;
+                                }
                             }
-                            i{
-                                margin-right: 10px;
+                        }
+                        &.signUpForm2{
+                            .left{
+                                padding: 40px 20px 20px 20px;
+                            }
+                            .right{
+                                span{
+                                    display: inline-flex;
+                                    width: 100%;
+                                    font-size: 15px;
+                                    margin-bottom: 5px;
+                                }
+                            }
+                        }
+                        &.signUpForm3{
+                            .left{
+                                padding: 30px 20px 20px 20px;
+                            }
+                            .right{
+                                display: flex;
+                                input{
+                                    padding: 5px 10px;
+                                    margin-right: 10px;
+                                }
+                                button{
+                                    padding: 5px 20px;
+                                    margin-right: 10px;
+                                    background: #6c6c6c;
+                                    border: 0;
+                                    color: #fff;
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    cursor: pointer;
+                                }
+                                p{
+                                    padding: 11px 0 0 0;
+                                    font-size: 16px;
+                                    margin-right: 10px;
+                                }
+                                span{
+                                    padding: 7px 0 0 0;
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                        &.signUpForm4{
+                            .left{
+                                padding: 30px 20px 20px 20px;
+                            }
+                            .right{
+                                display: flex;
+                                input{
+                                    padding: 5px 10px;
+                                    margin-right: 10px;
+                                }
+                                p{
+                                    padding: 11px 0 0 0;
+                                    font-size: 16px;
+                                    margin-right: 10px;
+                                }
+                                span{
+                                    padding: 7px 0 0 0;
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                        &.signUpForm5{
+                            .left{
+                                padding: 30px 20px 20px 20px;
+                            }
+                            .right{
+                                display: flex;
+                                input{
+                                    padding: 5px 10px;
+                                    margin-right: 10px;
+                                }
+                                p{
+                                    padding: 11px 0 0 0;
+                                    font-size: 16px;
+                                    margin-right: 10px;
+                                }
+                                span{
+                                    padding: 7px 0 0 0;
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                        &.signUpForm6{
+                            .left{
+                                padding: 20px 20px 20px 20px;
+                            }
+                            .right{
+                                display: flex;
+                                span{
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                        &.signUpForm7{
+                            .left{
+                                padding: 20px 20px 20px 20px;
+                            }
+                            .right{
+                                display: flex;
+                                span{
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                        &.signUpForm8{
+                            .left{
+                                padding: 20px 20px 20px 20px;
+                            }
+                            .right{
+                                display: flex;
+                                input{
+                                    margin-right: 5px;
+                                }
+                                label{
+                                    margin-right: 10px;
+                                }
+                            }
+                        }
+                        &.signUpForm9{
+                            .left{
+                                padding: 70px 20px 20px 20px;
+                            }
+                            .right{
+                                input{
+                                    display: inline-flex;
+                                    margin-right: 5px;
+                                    padding: 5px 10px;
+                                }
+                                .info-box{
+                                    width: 100%;
+                                    margin-top: 10px;
+                                    span{
+                                        display: inline-flex;
+                                        color: #dd484a;
+                                    }
+                                }
+                                .button-box{
+                                    margin-top: 10px;
+                                    width: 100%;
+                                    display: inline-flex;
+                                    .hpingng{
+                                        padding: 10px;
+                                        background: #5692bc;
+                                        color: #fff;
+                                        border: 0;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                        &.signUpForm10{
+                            .left{
+                                padding: 25px 20px 20px 20px;
+                            }
+                            .right{
+                                input{
+                                    margin-right: 5px;
+                                    padding: 5px 10px;
+                                }
+                                i{
+                                    margin-right: 5px;
+                                }
+                                select{
+                                    padding: 5px 10px;
+                                }
+                            }
+                        }
+                        &.signUpForm11{
+                            .left{
+                                padding: 70px 20px 20px 20px;
+                            }
+                            .right{
+                                .row1{
+                                    .addressBtn{
+                                        width: 150px;
+                                        padding: 5px 10px;
+                                        margin-right: 10px;
+                                        background: #6c6c6c;
+                                        color: #fff;
+                                        border: 0;
+                                        cursor: pointer;
+                                    }
+                                    input{
+                                        margin-right: 5px;
+                                        padding: 5px 10px;
+                                    }
+                                }
+                                .row2{
+                                    margin-top: 10px;
+                                    width: 100%;
+                                    input{
+                                        width: 100%;
+                                        margin-right: 5px;
+                                        padding: 5px 10px;
+                                    }
+                                }
+                                .row3{
+                                    margin-top: 10px;
+                                    width: 100%;
+                                    input{
+                                        width: 100%;
+                                        margin-right: 5px;
+                                        padding: 5px 10px;
+                                    }
+                                }
+                            }
+                        }
+                        &.signUpForm12{
+                            .left{
+                                padding: 20px 20px 20px 20px;
+                            }
+                            .right{
+                                input{
+                                    margin-right: 5px;
+                                }
+                                label{
+                                    vertical-align: top;
+                                    font-size: 15px;
+                                }
                             }
                         }
                     }
+                }
+            }
+            .section3{
+                margin-top: 50px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .signUp-btn{
+                    width: 140px;
+                    background: #5692bc;
+                    padding: 10px 0;
+                    color: #fff;
+                    font-size: 15px;
+                    font-weight: 500;
+                    border: 0;
+                }
+            }
+        }
+        .main5{
+            width: 100%;
+            .row1{
+                margin-top: 40px;
+                width: 100%;
+                span{
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+                p{
+                    font-size: 16px;
+                    font-weight: 300;
+                }
+            }
+            .row2{
+                margin-top: 50px;
+                width: 100%;
+                button{
+                    width: 140px;
+                    padding: 10px 0;
+                    background: #6c6c6c;
+                    border: 0;
+                    color: #fff;
                 }
             }
         }
