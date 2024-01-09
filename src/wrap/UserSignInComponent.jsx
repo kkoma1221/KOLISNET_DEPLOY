@@ -77,6 +77,8 @@ export default function UserSignInComponent(){
                     dispatch(logInInfo(logIn));
                     dispatch(SignInModal(false));
                     // navigate('/index')
+                    const htmlEl = document.getElementsByTagName('html')[0];
+                    htmlEl.classList.remove('on');
                 }
             }
         })
