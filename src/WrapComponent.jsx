@@ -24,6 +24,10 @@ import SubNoticeViewComponent from "./wrap/sub/SubNoticeViewComponent";
 import SubNoticeUpdateComponent from "./wrap/sub/SubNoticeUpdateComponent";
 import ConfirmModalComponent from './wrap/ConfirmModalComponent';
 import FooterComponent from './wrap/FooterComponent';
+import SubUserSIgnUpComponent from "./wrap/SubUserSIgnUpComponent";
+import UserSignInComponent from "./wrap/UserSignInComponent";
+import PostcodeComponent from "./wrap/PostcodeComponent.jsx";
+import { logInInfo } from "./reducer/userSignIn";
 import { useSelector, useDispatch } from "react-redux"; 
 import { adminSignIn } from "./reducer/adminSignIn";
 import { bookData } from "./reducer/bookData";
@@ -75,6 +79,11 @@ export default function WrapComponent(){
         })
     },[]);
 
+    React.useEffect(()=>{
+        let res = JSON.parse(localStorage.getItem('kolisnet_user_logIn'));
+        dispatch(logInInfo(res));
+    },[])
+
 
     return (
         <div id="wrap">
@@ -108,6 +117,15 @@ export default function WrapComponent(){
                     <FooterComponent/>
                 {
                     selector.confirmModal.isConfirmModal && <ConfirmModalComponent />
+                }
+                {
+                    selector.SignUpModal.isSignUp && <SubUserSIgnUpComponent />
+                }
+                {
+                    selector.SignInModal.isSignIn && <UserSignInComponent />
+                }
+                {
+                    selector.isAddress.isAddress && <PostcodeComponent />
                 }
                 </BrowserRouter>
         </div>

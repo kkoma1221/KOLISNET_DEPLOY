@@ -10,7 +10,11 @@ import searchData from './reducer/searchData.js';
 import searchSort from './reducer/searchSort.js';
 import currentBook from './reducer/currentBook.js';
 import cart from './reducer/cart.js';
-import myLibrary from './reducer/myLibrary.js';
+import SignUpModal from './reducer/isSignUpModal.js';
+import address from './reducer/address.js';
+import isAddress from './reducer/isAddress.js';
+import SignInModal from './reducer/isSignInModal.js';
+import logInInfo from './reducer/userSignIn.js';
 
 let store = configureStore({
   reducer: {
@@ -21,7 +25,11 @@ let store = configureStore({
     searchSort,
     currentBook,
     cart,
-    myLibrary
+    SignUpModal,
+    address,
+    isAddress,
+    SignInModal,
+    logInInfo
   }
 });
 
