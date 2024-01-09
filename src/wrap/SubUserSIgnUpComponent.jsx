@@ -363,6 +363,9 @@ export default function SubUserSIgnUpComponent(){
                 isSignUp3:true
             })
         }
+        else{
+            alert('이름과 생년월일을 입력 해주세요')
+        }
     }
 
     return (
