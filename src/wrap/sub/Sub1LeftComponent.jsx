@@ -1,9 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { searchData } from '../../reducer/searchData';
 
 export default function Sub1LeftComponent(){
 
     const selector = useSelector((state)=>state);
+    const dispatch = useDispatch();
 
     const [state, setState] = React.useState({
         일반도서: [],
@@ -24,7 +26,10 @@ export default function Sub1LeftComponent(){
         총류: [],
         기타: [],
         주제별: [],
-        전체: 0
+        전체: 0,
+        searchData: [],
+        category: [],
+        subject: []
     });
 
     React.useEffect(()=>{
@@ -88,10 +93,71 @@ export default function Sub1LeftComponent(){
                 기타 : 기타,
             });
         }
-        else if(selector.searchData.searchData===null){
-            return;
-        }
     },[selector.searchData.searchData]);
+
+    React.useEffect(()=>{
+        let category = [];
+        let subject = [];
+        if(state.일반도서.length > 0){
+            category = [...category, '일반도서'];
+        }
+        if(state.잡지학술지.length > 0){
+            category = [...category, '잡지학술지'];
+        }
+        if(state.학위논문.length > 0){
+            category = [...category, '학위논문'];
+        }
+        if(state.디지털신문.length > 0){
+            category = [...category, '디지털신문'];
+        }
+        if(state.멀티미디어비도서.length > 0){
+            category = [...category, '멀티미디어비도서'];
+        }
+        if(state.기술과학.length > 0){
+            subject = [...subject, '기술과학'];
+        }
+        if(state.문학.length > 0){
+            subject = [...subject, '문학'];
+        }
+        if(state.사회과학.length > 0){
+            subject = [...subject, '사회과학'];
+        }
+        if(state.순수과학.length > 0){
+            subject = [...subject, '순수과학'];
+        }
+        if(state.어학.length > 0){
+            subject = [...subject, '어학'];
+        }
+        if(state.역사.length > 0){
+            subject = [...subject, '역사'];
+        }
+        if(state.예술.length > 0){
+            subject = [...subject, '예술'];
+        }
+        if(state.자연과학.length > 0){
+            subject = [...subject, '자연과학'];
+        }
+        if(state.종교.length > 0){
+            subject = [...subject, '종교'];
+        }
+        if(state.철학.length > 0){
+            subject = [...subject, '철학'];
+        }
+        if(state.총류.length > 0){
+            subject = [...subject, '총류'];
+        }
+        if(state.기타.length > 0){
+            subject = [...subject, '기타'];
+        }
+
+        // console.log(category);
+        setState({
+            ...state,
+            category: category,
+            subject: subject
+        });
+
+    },[state.전체]);
 
 
     return (
@@ -106,29 +172,16 @@ export default function Sub1LeftComponent(){
                         <ul>
                             <li className="filter"><a href="!#">전체 <span>{`(${state.전체})`}</span></a></li>
                             {
-                                state.일반도서.length > 0 && (
-                                    <li className="filter"><a href="!#">일반도서 <span>{`(${state.일반도서.length})`}</span></a></li>
-                                )
-                            }
-                            {
-                                state.잡지학술지.length > 0 && (
-                                    <li className="filter"><a href="!#">잡지/학술지 <span>{`(${state.잡지학술지.length})`}</span></a></li>
-                                )
-                            }
-                            {
-                                state.학위논문.length > 0 && (
-                                    <li className="filter"><a href="!#">학위논문 <span>{`(${state.학위논문.length})`}</span></a></li>
-                                )
-                            }
-                            {
-                                state.디지털신문.length > 0 && (
-                                    <li className="filter"><a href="!#">디지털신문 <span>{`(${state.디지털신문.length})`}</span></a></li>
-                                )
-                            }
-                            {
-                                state.멀티미디어비도서.length > 0 && (
-                                    <li className="filter"><a href="!#">멀티미디어/비도서 <span>{`(${state.멀티미디어비도서.length})`}</span></a></li>
-                                )
+                                state.category.map((item, idx)=>{
+                                    return (
+                                        <li className="filter" key={idx}>
+                                            <a href="!#">{item}
+                                                <span>{`(${item==='일반도서'?(state.일반도서.length):item==='잡지학술지'?(state.잡지학술지.length):item==='학위논문'?(state.학위논문.length):item==='디지털신문'?(state.디지털신문.length):(state.멀티미디어비도서.length)})`}
+                                                </span>
+                                            </a>
+                                        </li>
+                                    )
+                                })
                             }
                         </ul>
                     </li>
@@ -209,12 +262,16 @@ export default function Sub1LeftComponent(){
                                 )
                             }
                         </ul>
-                        <button>more</button>
+                        {
+                            state.subject.length >= 4 && (
+                                <button>more</button>
+                            )
+                        }
+
                     </li>
                     <li>
                         <span><img src="./images/sub/sub1/sub_title_arrow.png" alt="" /><strong>언어</strong></span>
                         <ul>
-                            <li className="filter"><a href="!#">Korean <span>(7083)</span></a></li>
                             <li className="filter"><a href="!#">Japanese <span>(3322)</span></a></li>
                             <li className="filter"><a href="!#">Chinese <span>(187)</span></a></li>
                             <li className="filter"><a href="!#">English <span>(2380)</span></a></li>

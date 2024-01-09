@@ -12,7 +12,7 @@ export default function Sub1DataListComponentChild({dataList}){
 
     const [state, setState] = React.useState({
         // 자료목록리스트 페이지네이션
-        pageList: 4,
+        pageList: 20,
         page: 1,
         totalPage: 0,
 

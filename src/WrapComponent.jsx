@@ -56,6 +56,18 @@ export default function WrapComponent(){
             const result = JSON.parse(localStorage.getItem('KOLISNET_ADMIN_SIGNIN'));
             dispatch(adminSignIn(result));
         }
+    },[]);
+
+    React.useEffect(()=>{
+        if(localStorage.getItem('KOLISNET_SEARCH_DATA')!== null){
+            const result = JSON.parse(localStorage.getItem('KOLISNET_SEARCH_DATA'));
+            dispatch(searchData(result));
+            // console.log(result);
+            // console.log(selector.searchData.searchData);
+        }
+    },[]);
+
+    React.useEffect(()=>{
         if(localStorage.getItem('KOLISNET_CART')!==null){
             const result = JSON.parse(localStorage.getItem('KOLISNET_CART'));
             dispatch(cartMethod(result));
@@ -86,12 +98,6 @@ export default function WrapComponent(){
             if(localStorage.getItem('KOLISNET_REGISTER_DATA')!== null){
                 const result = JSON.parse(localStorage.getItem('KOLISNET_REGISTER_DATA'));
                 dispatch(bookData(result));
-            }
-            if(localStorage.getItem('KOLISNET_SEARCH_DATA')!== null){
-                const result = JSON.parse(localStorage.getItem('KOLISNET_SEARCH_DATA'));
-                dispatch(searchData(result));
-                // console.log(result);
-                // console.log(selector.searchData.searchData);
             }
         })
         .catch((err)=>{
