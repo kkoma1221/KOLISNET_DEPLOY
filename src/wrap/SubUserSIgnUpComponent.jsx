@@ -63,7 +63,7 @@ export default function SubUserSIgnUpComponent(){
         let {value} = e.target;
         const exp1=/[1-9]/g;
         if(exp1.test(value)===true){
-            alert("문자만 입력해주세요");
+            confirmModalMethod("문자만 입력해주세요");
         }
         else{
             setState({
@@ -76,12 +76,12 @@ export default function SubUserSIgnUpComponent(){
     const onChangeuserBirth=(e)=>{
         let {value} = e.target;
         const exp1=/[A-Za-zㄱ-ㅎㅏ-ㅣ가-힣]/g;
-        const exp2=/[1-9]{8}/g;
+        const exp2=/[0-9]{1,8}/g;
         if(exp1.test(value)===true){
-            alert('숫자만 입력해 주세요');
+            confirmModalMethod('숫자만 입력해 주세요');
         }
-        else if(exp2.test(value)===true){
-            alert('8자리를 초과 할수 없습니다.');
+        else if(exp2.test(value)===false){
+            confirmModalMethod('8자리를 초과 할수 없습니다.');
         }
         else{
             setState({
@@ -94,7 +94,7 @@ export default function SubUserSIgnUpComponent(){
     const onClickCertification=(e)=>{
         e.preventDefault();
         if(state.userName==='' && state.userBirth===''){
-            alert('본인인증은 필수 입니다')
+            confirmModalMethod('본인인증은 필수 입니다')
         }
         else{
             setState({
@@ -135,10 +135,10 @@ export default function SubUserSIgnUpComponent(){
         const exp1 = /[`~!@#$%^&*()\-_=+[{\]}\\|;:'",<.>/?]/g;
         const exp2 = /[A-Za-zㄱ-ㅎㅏ-ㅣ가-힣1-9]{12}/g;
         if(exp1.test(value)===true){
-            alert('특수문자는 사용불가 합니다.');
+            confirmModalMethod('특수문자는 사용불가 합니다.');
         }
         else if(exp2.test(value)===true){
-            alert('최대 12자까지 입력 가능합니다.');
+            confirmModalMethod('최대 12자까지 입력 가능합니다.');
         }
         else{
             setState({
@@ -1130,7 +1130,7 @@ export default function SubUserSIgnUpComponent(){
                                     </ul>
                                 </div>
                                 <div className="section3">
-                                    <button className='signUp-btn'>회원가입 신청</button>
+                                    <button className='signUp-btn' type='submit'>회원가입 신청</button>
                                 </div>
                             </form>
                         </div>

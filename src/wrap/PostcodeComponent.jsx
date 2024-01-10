@@ -128,7 +128,7 @@ export default function PostcodeComponent () {
                 <div className="window-title">
                     <h1>
                         <img src="./images/intro/favicon-192x192.png" alt="" />
-                        <em>컬리 - 마켓컬리/뷰티컬리-Chrome</em>
+                        <em>국가자료종합목록</em>
                     </h1>
                     <button onClick={onClickClose} title='닫기'>
                         <i className="material-icons">close</i>
