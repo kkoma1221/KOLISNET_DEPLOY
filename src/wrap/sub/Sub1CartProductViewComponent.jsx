@@ -35,7 +35,6 @@ export default function Sub1CartProductViewComponent(){
                                                     <span className={(location.state.bookSubject === '사회과학'||location.state.bookSubject ==='기술과학'||location.state.bookSubject ==='자연과학'||location.state.bookSubject ==='순수과학')?'word4':'word2'}>{location.state.bookSubject}</span>
                                                 </div>
                                                 <h2>{location.state.bookTitle}<h4>{`${JSON.parse(location.state.bookLibrary).length}개 도서관 소장`}</h4></h2>                                        
-
                                             </div>
                                         </div>
                                         <div className="row2">
