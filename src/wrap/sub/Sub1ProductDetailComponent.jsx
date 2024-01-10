@@ -114,7 +114,6 @@ export default function Sub1ProductDetailComponent(){
                     if(res.data!==null){
                         confirmModalMethod('바구니에 저장되었습니다.');
                         cartDBSelect(db);
-    
                     }
                     else if(res.data===null){
                         confirmModalMethod('바구니에 저장 실패하였습니다.');
