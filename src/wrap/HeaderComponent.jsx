@@ -167,10 +167,6 @@ export default  function HeaderComponent(){
                 let bookData = selector.bookData.bookData;
                 let result = bookData.filter((item)=>item.bookTitle.includes(state.keyword)||item.bookWriter.includes(state.keyword));
                 // console.log(result);
-                const obj = {
-                    searchData: result,
-                    searchWord: state.keyword
-                }
                 if(!state.searchSort.includes('일반도서')){
                     searchFilter('일반도서', result);
                 }

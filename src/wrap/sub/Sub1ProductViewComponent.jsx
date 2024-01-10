@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { confirmModal } from '../../reducer/confirmModal';
 import { cartMethod } from '../../reducer/cart';
+import { myLibraryMethod } from '../../reducer/myLibrary';
 import axios from 'axios';
 
 export default function Sub1ProductViewComponent(){
@@ -37,7 +38,7 @@ export default function Sub1ProductViewComponent(){
         htmlEl.classList.add('on');
     }
 
-    const cartDBSave=(item)=>{
+    const cartDBSave=(item, db)=>{
         let formData = new FormData();
         let bookLibrary = JSON.parse(item.bookLibrary);
         formData.append('userId', selector.logInInfo.logInInfo.userId);
@@ -57,53 +58,100 @@ export default function Sub1ProductViewComponent(){
         formData.append('bookStore',item.bookStore);
         formData.append('bookLibrary',JSON.stringify(bookLibrary));
         formData.append('bookOtherLibrary',item.bookOtherLibrary);
-        axios({
-            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
-            method: 'POST',
-            data: formData
-        })
-        .then((res)=>{
-            if(res.status===200){
-                // console.log(res.data);
-                // console.log(item);
-                console.log(item.bookLibrary);
-                console.log(JSON.stringify(item.bookLibrary));
-                if(res.data!==null){
-                    confirmModalMethod('바구니에 저장되었습니다.');
-                    cartDBSelect();
-
+        if(db==='cart'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_insert.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    // console.log(res.data);
+                    // console.log(item);
+                    console.log(item.bookLibrary);
+                    console.log(JSON.stringify(item.bookLibrary));
+                    if(res.data!==null){
+                        confirmModalMethod('바구니에 저장되었습니다.');
+                        cartDBSelect(db);
+    
+                    }
+                    else if(res.data===null){
+                        confirmModalMethod('바구니에 저장 실패하였습니다.');
+                    }
                 }
-                else if(res.data===null){
-                    confirmModalMethod('바구니에 저장 실패하였습니다.');
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+        else if(db==='myLibrary'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_myLibrary_table_insert.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    if(res.data!==null){
+                        confirmModalMethod('내 서재에 저장되었습니다.');
+                        cartDBSelect(db);
+    
+                    }
+                    else if(res.data===null){
+                        confirmModalMethod('내 서재에 저장 실패하였습니다.');
+                    }
                 }
-            }
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
     }
 
-    const cartDBSelect=()=>{
+    const cartDBSelect=(db)=>{
         let formData = new FormData();
         formData.append('userId', selector.logInInfo.logInInfo.userId);
-        axios({
-            url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
-            method: 'POST',
-            data: formData
-        })
-        .then((res)=>{
-            if(res.status===200){
-                //console.log(res.data);
-                if(res.data!==null){
-                    localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
-                    dispatch(cartMethod(res.data));
-                    // console.log(res.data);
+        if(db==='cart'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_cart_table_select.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    //console.log(res.data);
+                    if(res.data!==null){
+                        localStorage.setItem('KOLISNET_CART', JSON.stringify(res.data));
+                        dispatch(cartMethod(res.data));
+                        // console.log(res.data);
+                    }
                 }
-            }
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+        else if(db==='myLibrary'){
+            axios({
+                url: 'http://kkoma1221.dothome.co.kr/kolisnet/kolisnet_myLibrary_table_select.php',
+                method: 'POST',
+                data: formData
+            })
+            .then((res)=>{
+                if(res.status===200){
+                    //console.log(res.data);
+                    if(res.data!==null){
+                        localStorage.setItem('KOLISNET_MYLIBRARY', JSON.stringify(res.data));
+                        dispatch(myLibraryMethod(res.data));
+                        // console.log(res.data);
+                    }
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+
     }
 
     const onClickGoCart=(e)=>{
@@ -125,7 +173,7 @@ export default function Sub1ProductViewComponent(){
             cart = [...cart, currentBook];
             confirmModalMethod('바구니에 저장되었습니다.'); 
             if(selector.logInInfo.logInInfo!==null){
-                cartDBSave(currentBook);
+                cartDBSave(currentBook, 'cart');
             }
         }
 
@@ -139,6 +187,40 @@ export default function Sub1ProductViewComponent(){
         // console.log(currentBook.bookCopyright);
         // console.log(result);
         // console.log(cart);
+    }
+
+    const onClickGoMyLibrary=(e)=>{
+        e.preventDefault();
+        if(selector.logInInfo.logInInfo===null){
+            confirmModalMethod('로그인이 필요한 메뉴입니다.');
+        }
+        else if(selector.logInInfo.logInInfo!==null){
+            let currentBook = selector.currentBook.currentBook;
+            let library = [];
+            // navigate('/myLibrary');
+            if(localStorage.getItem('KOLISNET_MYLIBRARY')!==null){
+                library = JSON.parse(localStorage.getItem('KOLISNET_MYLIBRARY'));
+            }
+
+            let result = library.map((item)=>item.bookCopyright === currentBook.bookCopyright);
+
+            if(result.includes(true)){
+                confirmModalMethod('이미 내 서재에 들어있는 자료입니다.');
+            }
+            else{
+                library = [...library, currentBook];
+                confirmModalMethod('내 서재에 저장되었습니다.'); 
+                cartDBSave(currentBook, 'myLibrary');
+            }
+
+            localStorage.setItem('KOLISNET_MYLIBRARY', JSON.stringify(library));
+            setState({
+                ...state,
+                currentBook: library
+            });
+            
+            dispatch(myLibraryMethod(library));
+        }
     }
 
     return (
@@ -214,7 +296,7 @@ export default function Sub1ProductViewComponent(){
                                             <ul>
                                                 <li><a href="!#">책바다(상호대차) 신청</a></li>
                                                 <li><a href="!#" onClick={onClickGoCart}><img src="./images/sub/sub1/btn_cart.png" alt="" />바구니담기</a></li>
-                                                <li><a href="!#"><img src="./images/sub/sub1/btn_myLib.png" alt="" />내서재담기</a></li>
+                                                <li><a href="!#" onClick={onClickGoMyLibrary}><img src="./images/sub/sub1/btn_myLib.png" alt="" />내서재담기</a></li>
                                             </ul>
                                         </div>
                                     </div>
